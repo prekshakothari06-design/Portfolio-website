@@ -194,7 +194,7 @@ export default function Home() {
                 </p>
                 <div className="flex items-center gap-3 pt-2">
                   <a
-                    href="https://linkedin.com/in/prekshakothari"
+                    href="https://www.linkedin.com/in/kothari-preksha/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs text-muted hover:text-accent transition-colors"

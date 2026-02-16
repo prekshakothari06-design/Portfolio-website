@@ -24,7 +24,7 @@ const footerSections = [
     title: "Engage",
     links: [
       { label: "Services", href: "/services" },
-      { label: "LinkedIn", href: "https://linkedin.com/in/prekshakothari" },
+      { label: "LinkedIn", href: "https://www.linkedin.com/in/kothari-preksha/" },
       { label: "Email", href: "mailto:prekshakothari06@gmail.com" },
     ],
   },
@@ -54,7 +54,7 @@ export default function Footer() {
             </p>
             <div className="flex items-center gap-3 pt-2">
               <a
-                href="https://linkedin.com/in/prekshakothari"
+                href="https://www.linkedin.com/in/kothari-preksha/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex h-8 w-8 items-center justify-center rounded-lg border border-border hover:border-accent/50 hover:bg-accent/10 transition-colors"

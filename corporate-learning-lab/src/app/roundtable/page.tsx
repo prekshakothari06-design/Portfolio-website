@@ -214,7 +214,7 @@ export default function RoundtablePage() {
                 <Send className="h-3.5 w-3.5" /> Submit a Topic
               </a>
               <a
-                href="https://linkedin.com/in/prekshakothari"
+                href="https://www.linkedin.com/in/kothari-preksha/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-border hover:border-accent/50 text-xs font-semibold rounded-xl transition-colors"
