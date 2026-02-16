@@ -1,0 +1,101 @@
+@import "tailwindcss";
+
+:root {
+  --background: #0d1117;
+  --foreground: #f0f6fc;
+  --card: #161b22;
+  --card-hover: #1f2937;
+  --border: #30363d;
+  --accent: #58a6ff;
+  --accent-dim: #388bfd;
+  --cyan: #39d2c0;
+  --muted: #c9d1d9;
+  --surface: #0d1117;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-hover: var(--card-hover);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-cyan: var(--cyan);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #3a3a48 #0c0c10;
+}
+
+html {
+  scroll-behavior: auto;
+  color-scheme: dark;
+  color: #f0f6fc;
+}
+
+body {
+  background: #0d1117;
+  color: #f0f6fc;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: #0ea5e940;
+  color: #f1f5f9;
+}
+
+@keyframes grid-pulse {
+  0%, 100% { opacity: 0.03; }
+  50% { opacity: 0.06; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes counter {
+  from { --num: 0; }
+}
+
+.grid-bg {
+  background: transparent;
+}
+
+.glow-line {
+  background: linear-gradient(90deg, transparent, #58a6ff, transparent);
+  height: 1px;
+}
+
+.card-glow {
+  position: relative;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, #58a6ff, #39d2c0, #58a6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #f1f5f9 0%, #0ea5e9 50%, #f1f5f9 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer 3s linear infinite;
+}
