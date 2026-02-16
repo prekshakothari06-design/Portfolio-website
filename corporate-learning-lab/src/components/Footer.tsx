@@ -25,7 +25,7 @@ const footerSections = [
     links: [
       { label: "Services", href: "/services" },
       { label: "LinkedIn", href: "https://www.linkedin.com/in/kothari-preksha/" },
-      { label: "Email", href: "https://mail.google.com/mail/?view=cm&to=prekshakothari06@gmail.com" },
+      { label: "Email", href: "mailto:prekshakothari06@gmail.com" },
     ],
   },
 ];
@@ -62,7 +62,7 @@ export default function Footer() {
                 <Linkedin className="h-3.5 w-3.5 text-muted" />
               </a>
               <a
-                href="https://mail.google.com/mail/?view=cm&to=prekshakothari06@gmail.com"
+                href="mailto:prekshakothari06@gmail.com"
                 className="flex h-8 w-8 items-center justify-center rounded-lg border border-border hover:border-accent/50 hover:bg-accent/10 transition-colors"
               >
                 <Mail className="h-3.5 w-3.5 text-muted" />

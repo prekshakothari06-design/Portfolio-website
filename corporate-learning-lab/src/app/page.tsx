@@ -203,7 +203,7 @@ export default function Home() {
                   </a>
                   <span className="text-border">|</span>
                   <a
-                    href="https://mail.google.com/mail/?view=cm&to=prekshakothari06@gmail.com"
+                    href="mailto:prekshakothari06@gmail.com"
                     className="inline-flex items-center gap-2 text-xs text-muted hover:text-accent transition-colors"
                   >
                     <Mail className="h-3.5 w-3.5" /> prekshakothari06@gmail.com
@@ -352,7 +352,7 @@ export default function Home() {
               </p>
               <div className="flex justify-center gap-3">
                 <a
-                  href="https://mail.google.com/mail/?view=cm&to=prekshakothari06@gmail.com"
+                  href="mailto:prekshakothari06@gmail.com"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-dim text-white text-sm font-semibold rounded-xl transition-colors"
                 >
                   Start a Conversation <ArrowRight className="h-4 w-4" />
