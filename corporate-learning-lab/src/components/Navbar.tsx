@@ -5,32 +5,32 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  FlaskConical,
+  Sparkles,
   Menu,
   X,
   LayoutDashboard,
-  Beaker,
+  FolderKanban,
   Briefcase,
   Wrench,
   MessageSquare,
   GraduationCap,
   PenTool,
-  ClipboardCheck,
-  Monitor,
   BookOpen,
+  Star,
+  FileText,
 } from "lucide-react";
 
 const navLinks = [
-  { href: "/", label: "Lab Dashboard", icon: LayoutDashboard },
-  { href: "/experiments", label: "Experiments", icon: Beaker },
+  { href: "/", label: "Professional Overview", icon: LayoutDashboard },
+  { href: "/experiments", label: "Projects", icon: FolderKanban },
   { href: "/services", label: "Services", icon: Briefcase },
   { href: "/toolkits", label: "Toolkits", icon: Wrench },
   { href: "/roundtable", label: "Roundtable", icon: MessageSquare },
   { href: "/campus-to-corporate", label: "Campus → Corporate", icon: GraduationCap },
-  { href: "/design-studio", label: "Design Studio", icon: PenTool },
-  { href: "/assessment-lab", label: "Assessment Lab", icon: ClipboardCheck },
-  { href: "/lms-lab", label: "LMS Lab", icon: Monitor },
-  { href: "/lab-notebook", label: "Lab Notebook", icon: BookOpen },
+  { href: "/design-studio", label: "Prototypes", icon: PenTool },
+  { href: "/lab-notebook", label: "Reflections & Learnings", icon: BookOpen },
+  { href: "/testimonials", label: "Testimonials", icon: Star },
+  { href: "/resume", label: "Resume", icon: FileText },
 ];
 
 export default function Navbar() {
@@ -51,14 +51,14 @@ export default function Navbar() {
 
             <Link href="/" className="flex items-center gap-2.5 group">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10 border border-accent/20 group-hover:bg-accent/20 transition-colors">
-                <FlaskConical className="h-5 w-5 text-accent" />
+                <Sparkles className="h-5 w-5 text-accent" />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-semibold tracking-tight leading-none">
-                  The Corporate
+                  Learning That Moves
                 </span>
                 <span className="text-xs text-accent font-mono tracking-wider leading-none mt-0.5">
-                  LEARNING LAB
+                  BEYOND CONTENT
                 </span>
               </div>
             </Link>
@@ -88,7 +88,7 @@ export default function Navbar() {
               })}
               <div className="relative group">
                 <button className="px-3 py-2 text-xs font-medium tracking-wide text-muted hover:text-foreground hover:bg-card rounded-md transition-colors">
-                  More Labs ▾
+                  More ▾
                 </button>
                 <div className="absolute right-0 top-full mt-1 w-52 py-2 bg-card border border-border rounded-xl shadow-2xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
                   {navLinks.slice(6).map((link) => {

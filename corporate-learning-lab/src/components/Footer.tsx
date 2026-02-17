@@ -1,14 +1,14 @@
-import { FlaskConical, Linkedin, Mail, MapPin } from "lucide-react";
+import { Sparkles, Linkedin, Mail, MapPin } from "lucide-react";
 import Link from "next/link";
 
 const footerSections = [
   {
-    title: "Lab Sections",
+    title: "Portfolio",
     links: [
-      { label: "Experiments", href: "/experiments" },
-      { label: "Design Studio", href: "/design-studio" },
-      { label: "Assessment Lab", href: "/assessment-lab" },
-      { label: "LMS Lab", href: "/lms-lab" },
+      { label: "Projects", href: "/experiments" },
+      { label: "Prototypes", href: "/design-studio" },
+      { label: "Testimonials", href: "/testimonials" },
+      { label: "Resume", href: "/resume" },
     ],
   },
   {
@@ -16,7 +16,7 @@ const footerSections = [
     links: [
       { label: "Toolkits", href: "/toolkits" },
       { label: "Roundtable", href: "/roundtable" },
-      { label: "Lab Notebook", href: "/lab-notebook" },
+      { label: "Reflections & Learnings", href: "/lab-notebook" },
       { label: "Campus → Corporate", href: "/campus-to-corporate" },
     ],
   },
@@ -38,14 +38,14 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2.5">
               <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/10 border border-accent/20">
-                <FlaskConical className="h-5 w-5 text-accent" />
+                <Sparkles className="h-5 w-5 text-accent" />
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-semibold tracking-tight leading-none">
-                  The Corporate
+                  Learning That Moves
                 </span>
                 <span className="text-xs text-accent font-mono tracking-wider leading-none mt-0.5">
-                  LEARNING LAB
+                  BEYOND CONTENT
                 </span>
               </div>
             </div>
@@ -99,7 +99,7 @@ export default function Footer() {
             <span>Bangalore, India</span>
           </div>
           <p className="text-xs text-muted/60">
-            © {new Date().getFullYear()} Preksha Kothari · The Corporate Learning Lab
+            © {new Date().getFullYear()} Preksha Kothari · Learning That Moves Beyond Content
           </p>
         </div>
       </div>

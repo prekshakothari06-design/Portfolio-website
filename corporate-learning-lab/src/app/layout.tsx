@@ -15,9 +15,9 @@ const jetbrains = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "The Corporate Learning Lab | Preksha Kothari",
+  title: "Learning That Moves Beyond Content | Preksha Kothari",
   description:
-    "Designing learning systems for workplaces, campuses, and career transitions. Instructional Design · Learning Experience Architecture · Workforce Capability Design.",
+    "Designing learning experiences for workplaces, campuses, and career transitions. Instructional Design · Learning Experience Architecture · Workforce Capability Design.",
 };
 
 export default function RootLayout({
@@ -29,12 +29,12 @@ export default function RootLayout({
     <html lang="en" style={{ colorScheme: 'dark' }}>
       <head>
         <style dangerouslySetInnerHTML={{ __html: `
-          html { color-scheme: dark; color: #f0f6fc; }
-          body { background-color: #0d1117 !important; color: #f0f6fc !important; }
+          html { color-scheme: dark; color: #e2e5eb; }
+          body { background-color: #0b0d14 !important; color: #e2e5eb !important; }
         `}} />
       </head>
       <body
-        style={{ backgroundColor: '#0d1117', color: '#f0f6fc' }}
+        style={{ backgroundColor: '#0b0d14', color: '#e2e5eb' }}
         className={`${inter.variable} ${jetbrains.variable}`}
       >
         <Navbar />

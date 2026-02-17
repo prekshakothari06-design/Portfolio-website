@@ -1,16 +1,16 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0d1117;
-  --foreground: #f0f6fc;
-  --card: #161b22;
-  --card-hover: #1f2937;
-  --border: #30363d;
-  --accent: #58a6ff;
-  --accent-dim: #388bfd;
-  --cyan: #39d2c0;
-  --muted: #c9d1d9;
-  --surface: #0d1117;
+  --background: #0b0d14;
+  --foreground: #e2e5eb;
+  --card: #13161f;
+  --card-hover: #1a1e2a;
+  --border: #232837;
+  --accent: #7c8aff;
+  --accent-dim: #636ee6;
+  --cyan: #2dd4bf;
+  --muted: #8b90a4;
+  --surface: #0f111a;
 }
 
 @theme inline {
@@ -38,13 +38,14 @@
 html {
   scroll-behavior: auto;
   color-scheme: dark;
-  color: #f0f6fc;
+  color: #e2e5eb;
 }
 
 body {
-  background: #0d1117;
-  color: #f0f6fc;
+  background: #0b0d14;
+  color: #e2e5eb;
   font-family: var(--font-sans), system-ui, sans-serif;
+  letter-spacing: -0.01em;
 }
 
 ::selection {
@@ -76,7 +77,7 @@ body {
 }
 
 .glow-line {
-  background: linear-gradient(90deg, transparent, #58a6ff, transparent);
+  background: linear-gradient(90deg, transparent, #7c8aff, transparent);
   height: 1px;
 }
 
@@ -85,17 +86,29 @@ body {
 }
 
 .text-gradient {
-  background: linear-gradient(135deg, #58a6ff, #39d2c0, #58a6ff);
+  background: linear-gradient(135deg, #7c8aff, #2dd4bf, #7c8aff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
 .shimmer-text {
-  background: linear-gradient(90deg, #f1f5f9 0%, #0ea5e9 50%, #f1f5f9 100%);
+  background: linear-gradient(90deg, #e2e5eb 0%, #7c8aff 50%, #e2e5eb 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   animation: shimmer 3s linear infinite;
+}
+
+.section-spacing {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
+
+@media (min-width: 640px) {
+  .section-spacing {
+    padding-top: 6rem;
+    padding-bottom: 6rem;
+  }
 }

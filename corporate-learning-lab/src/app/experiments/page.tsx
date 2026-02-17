@@ -37,6 +37,7 @@ interface CaseStudy {
   assessmentDesign: string;
   deployment: string;
   impact: string[];
+  evidence: { label: string; type: string; description: string }[];
 }
 
 const caseStudies: CaseStudy[] = [
@@ -55,7 +56,7 @@ const caseStudies: CaseStudy[] = [
       "Applied the ADDIE model to architect a blended learning pathway. Designed scenario-driven modules that mirror real workplace situations — customer complaints, rush-hour operations, and quality checks. Aligned all learning objectives to Bloom's Taxonomy, ensuring progression from recall to application-level mastery.",
     storyboarding:
       "Created detailed storyboards for 5+ e-learning modules, mapping each screen to a learning objective. Incorporated branching scenarios where learners make decisions and see consequences. Designed visual flow diagrams showing module progression and prerequisite dependencies.",
-    tools: ["Articulate 360", "SCORM", "Wooqer", "Canva", "LMS"],
+    tools: ["Articulate 360", "SCORM", "Canva", "LMS"],
     assessmentDesign:
       "Built 20+ knowledge checks, scenario simulations, and end-of-module assessments. Designed formative assessments at each checkpoint and summative evaluations tied to competency benchmarks. Integrated feedback loops that provide targeted remediation based on learner responses.",
     deployment:
@@ -65,6 +66,12 @@ const caseStudies: CaseStudy[] = [
       "Reduced onboarding ramp-up time through structured, self-paced pathways",
       "Scaled consistent training delivery to 200+ frontline staff",
       "Achieved measurable improvement in learner completion rates",
+    ],
+    evidence: [
+      { label: "Storyboard: Module 1 Screen Flow", type: "Storyboard", description: "8-screen linear progression from title screen through scenario challenge to summative assessment — each screen mapped to a Bloom's-level learning objective." },
+      { label: "Interaction Flow: Branching Scenario", type: "Interaction Design", description: "Decision tree for customer interaction training — 3 response paths with distinct consequences, debrief screen, and remediation routing." },
+      { label: "Assessment Sample: Scenario-Based MCQ", type: "Assessment", description: "Application-level question requiring learners to select the correct SOPs for a rush-hour scenario, replacing recall-based knowledge checks." },
+      { label: "Before vs After: Slide Deck → Module", type: "Comparison", description: "45-slide PowerPoint transformed into 5 chunked modules (8–12 screens each, under 15 min), reducing cognitive load and improving completion rates." },
     ],
   },
   {
@@ -93,6 +100,11 @@ const caseStudies: CaseStudy[] = [
       "Developed reusable assessment frameworks for ongoing capability measurement",
       "Created scalable TNA methodology adaptable across departments",
     ],
+    evidence: [
+      { label: "TNA Framework: Multi-Level Analysis Grid", type: "Framework", description: "Three-tier analysis covering organizational goals, task-level competencies, and individual skill gaps — with severity scoring and priority ranking." },
+      { label: "Competency Map: Current vs Target", type: "Design Artefact", description: "Visual competency mapping grid showing baseline assessment scores against target proficiency levels for 6 core skill domains." },
+      { label: "Assessment Blueprint: Pre/Post Design", type: "Assessment", description: "Paired pre- and post-intervention assessments measuring knowledge gain, confidence shift, and intended application for each intervention module." },
+    ],
   },
   {
     id: "faculty",
@@ -120,6 +132,11 @@ const caseStudies: CaseStudy[] = [
       "Streamlined training delivery with 20% improvement in on-time distribution",
       "Enhanced pedagogical capability across institutional faculty",
     ],
+    evidence: [
+      { label: "Workshop Flow Blueprint", type: "Design Artefact", description: "Timed activity sequence with facilitator cues, discussion prompts, hands-on segments, and embedded formative assessment checkpoints for a 90-minute session." },
+      { label: "Unified Template System", type: "Design System", description: "Cross-departmental visual template with consistent section structures, branding, content depth standards, and post-workshop reference card format." },
+      { label: "Evaluation Instrument: Post-Workshop", type: "Assessment", description: "Multi-dimensional feedback form measuring knowledge gain, confidence shift, and intended practice changes — aggregated across 10+ sessions." },
+    ],
   },
   {
     id: "inclusive",
@@ -146,6 +163,11 @@ const caseStudies: CaseStudy[] = [
       "Reduced teacher preparation time for adapted materials",
       "Aligned content with curriculum standards and inclusive education principles",
       "Piloted across 15+ students with documented engagement improvements",
+    ],
+    evidence: [
+      { label: "UDL Audit: Existing vs Redesigned Materials", type: "Comparison", description: "Side-by-side comparison showing text-heavy originals versus redesigned pages with 150% larger visuals, icon-based instructions, and high-contrast color coding." },
+      { label: "Content Map: Cognitive Load Sequencing", type: "Design Artefact", description: "Page-by-page activity map resequenced by cognitive load rather than textbook chapter order, with sensory transition breaks between demanding tasks." },
+      { label: "Observation Checklist: Pilot Data", type: "Assessment", description: "Teacher observation instrument tracking attention duration, task completion, help-seeking frequency, and engagement indicators across 15+ pilot students." },
     ],
   },
 ];
@@ -274,6 +296,27 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
                       ))}
                     </div>
                   </div>
+
+                  {/* Evidence & Artefacts */}
+                  {study.evidence && study.evidence.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Layout className="h-4 w-4 text-accent" />
+                        <h4 className="text-sm font-semibold">Evidence & Design Artefacts</h4>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-3">
+                        {study.evidence.map((ev, i) => (
+                          <div key={i} className="p-4 rounded-xl bg-surface border border-border hover:border-accent/20 transition-colors">
+                            <div className="flex items-center gap-2 mb-2">
+                              <span className="text-[9px] font-mono font-semibold px-2 py-0.5 rounded bg-accent/10 text-accent">{ev.type}</span>
+                            </div>
+                            <h5 className="text-xs font-semibold mb-1">{ev.label}</h5>
+                            <p className="text-[11px] text-muted leading-relaxed">{ev.description}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </motion.div>
@@ -309,7 +352,7 @@ export default function ExperimentsPage() {
     <div className="grid-bg min-h-screen">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
-          label="Experiments"
+          label="Projects"
           title="Portfolio Case Studies"
           description="Each project follows a structured design intervention methodology — from identifying the learning problem through needs analysis, design, development, and measurable impact evaluation."
         />
@@ -331,7 +374,7 @@ export default function ExperimentsPage() {
               ))}
             </div>
             <p className="text-[10px] text-muted mt-3 font-mono text-center tracking-wider">
-              ADDIE FRAMEWORK — APPLIED ACROSS ALL EXPERIMENTS
+              ADDIE FRAMEWORK — APPLIED ACROSS ALL PROJECTS
             </p>
           </div>
         </AnimatedSection>

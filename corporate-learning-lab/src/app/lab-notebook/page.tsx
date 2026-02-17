@@ -2,18 +2,12 @@
 
 import { motion } from "framer-motion";
 import {
-  BookOpen,
-  RefreshCw,
   MessageSquare,
   Lightbulb,
-  ArrowRight,
-  CheckCircle2,
-  AlertTriangle,
+  RefreshCw,
   Target,
   TrendingUp,
-  Clock,
   Layers,
-  ChevronRight,
 } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import AnimatedSection from "@/components/AnimatedSection";
@@ -142,88 +136,10 @@ export default function LabNotebookPage() {
     <div className="grid-bg min-h-screen">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
-          label="Lab Notebook"
-          title="Iterations, Reflections & Future Directions"
-          description="The design process is never linear. This section documents feedback-driven redesigns, lessons learned across projects, and the evolving directions of my practice."
+          label="Reflections & Learnings"
+          title="Design Learnings, Project Reflections & Growth Insights"
+          description="The design process is never linear. This section captures lessons learned across projects, evolving perspectives, and the future directions of my practice."
         />
-
-        {/* Iterations */}
-        <div className="mb-16">
-          <AnimatedSection>
-            <div className="flex items-center gap-3 mb-8">
-              <div className="h-px w-8 bg-accent" />
-              <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
-                Feedback-Driven Redesigns
-              </span>
-            </div>
-          </AnimatedSection>
-
-          <div className="space-y-6">
-            {iterations.map((item, i) => (
-              <AnimatedSection key={item.project} delay={i * 0.1}>
-                <div className="card-glow rounded-2xl bg-card border border-border p-6 sm:p-8">
-                  <div className="flex items-start justify-between gap-4 mb-6 flex-wrap">
-                    <div>
-                      <h3 className="text-base font-bold">{item.project}</h3>
-                      <div className="flex items-center gap-3 mt-1">
-                        <span className="text-[10px] font-mono text-accent font-semibold">{item.version}</span>
-                        <span className="text-[10px] text-muted flex items-center gap-1">
-                          <Clock className="h-3 w-3" /> {item.timeline}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full">
-                      <span className="text-[10px] font-mono font-semibold text-accent">ITERATION LOG</span>
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-4 mb-4">
-                    {/* Original Design */}
-                    <div className="p-4 rounded-xl bg-rose-500/5 border border-rose-500/10">
-                      <p className="text-[10px] font-mono font-semibold text-rose-400 mb-2">ORIGINAL DESIGN</p>
-                      <p className="text-xs text-muted leading-relaxed">{item.original}</p>
-                    </div>
-
-                    {/* Feedback Received */}
-                    <div className="p-4 rounded-xl bg-amber-500/5 border border-amber-500/10">
-                      <p className="text-[10px] font-mono font-semibold text-amber-400 mb-2">FEEDBACK RECEIVED</p>
-                      <div className="space-y-1.5">
-                        {item.feedback.map((fb, fi) => (
-                          <div key={fi} className="flex items-start gap-2 text-xs text-muted">
-                            <AlertTriangle className="h-3 w-3 text-amber-400 shrink-0 mt-0.5" />
-                            {fb}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Redesign Actions */}
-                  <div className="p-4 rounded-xl bg-sky-500/5 border border-sky-500/10 mb-4">
-                    <p className="text-[10px] font-mono font-semibold text-sky-400 mb-2">REDESIGN ACTIONS</p>
-                    <div className="grid sm:grid-cols-2 gap-1.5">
-                      {item.redesign.map((action, ai) => (
-                        <div key={ai} className="flex items-start gap-2 text-xs text-muted">
-                          <RefreshCw className="h-3 w-3 text-sky-400 shrink-0 mt-0.5" />
-                          {action}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Outcome */}
-                  <div className="p-4 rounded-xl bg-emerald-500/5 border border-emerald-500/10">
-                    <p className="text-[10px] font-mono font-semibold text-emerald-400 mb-2">OUTCOME</p>
-                    <p className="text-xs text-muted leading-relaxed flex items-start gap-2">
-                      <TrendingUp className="h-3.5 w-3.5 text-emerald-400 shrink-0 mt-0.5" />
-                      {item.outcome}
-                    </p>
-                  </div>
-                </div>
-              </AnimatedSection>
-            ))}
-          </div>
-        </div>
 
         {/* Lessons Learned */}
         <div className="mb-16">

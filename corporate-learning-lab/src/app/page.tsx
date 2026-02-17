@@ -2,14 +2,12 @@
 
 import Link from "next/link";
 import {
-  Beaker,
+  FolderKanban,
   Briefcase,
   Wrench,
   MessageSquare,
   GraduationCap,
   PenTool,
-  ClipboardCheck,
-  Monitor,
   BookOpen,
   ArrowRight,
   Layers,
@@ -21,6 +19,9 @@ import {
   ChevronRight,
   Linkedin,
   Mail,
+  Star,
+  FileText,
+  ClipboardCheck,
 } from "lucide-react";
 import AnimatedSection from "@/components/AnimatedSection";
 
@@ -39,7 +40,6 @@ const tools = [
   "ADDIE",
   "Bloom's Taxonomy",
   "LMS Platforms",
-  "Wooqer",
   "Canva",
   "UDL Framework",
   "Storyboarding",
@@ -49,8 +49,8 @@ const tools = [
 const navTiles = [
   {
     href: "/experiments",
-    icon: Beaker,
-    title: "Experiments",
+    icon: FolderKanban,
+    title: "Projects",
     desc: "Case studies from corporate onboarding, TNA, and inclusive design projects.",
     color: "from-sky-500/20 to-cyan-500/20",
   },
@@ -78,37 +78,37 @@ const navTiles = [
   {
     href: "/campus-to-corporate",
     icon: GraduationCap,
-    title: "Campus → Corporate Lab",
-    desc: "Career diagnostics, skill mapping, and workplace simulations.",
+    title: "Campus → Corporate",
+    desc: "Career counselling, transition coaching, and workplace readiness.",
     color: "from-amber-500/20 to-orange-500/20",
   },
   {
     href: "/design-studio",
     icon: PenTool,
-    title: "Design Studio",
+    title: "Prototypes",
     desc: "Storyboards, wireframes, content chunking, and module prototypes.",
     color: "from-pink-500/20 to-rose-500/20",
   },
   {
-    href: "/assessment-lab",
-    icon: ClipboardCheck,
-    title: "Assessment Lab",
-    desc: "Question design, Bloom's mapping, scenario-based assessment engineering.",
-    color: "from-cyan-500/20 to-sky-500/20",
-  },
-  {
-    href: "/lms-lab",
-    icon: Monitor,
-    title: "LMS & Deployment",
-    desc: "SCORM packaging, LMS dashboards, and completion tracking.",
-    color: "from-emerald-500/20 to-green-500/20",
-  },
-  {
     href: "/lab-notebook",
     icon: BookOpen,
-    title: "Lab Notebook",
-    desc: "Iterations, redesigns, lessons learned, and future directions.",
+    title: "Reflections & Learnings",
+    desc: "Design learnings, project reflections, and growth insights.",
     color: "from-slate-500/20 to-gray-500/20",
+  },
+  {
+    href: "/testimonials",
+    icon: Star,
+    title: "Testimonials",
+    desc: "Feedback from supervisors, faculty, stakeholders, and learners.",
+    color: "from-yellow-500/20 to-amber-500/20",
+  },
+  {
+    href: "/resume",
+    icon: FileText,
+    title: "Resume",
+    desc: "Download or view my professional resume.",
+    color: "from-emerald-500/20 to-green-500/20",
   },
 ];
 
@@ -124,7 +124,7 @@ export default function Home() {
               <div className="flex items-center gap-3 mb-6">
                 <div className="h-px w-12 bg-accent" />
                 <span className="text-xs font-mono font-semibold tracking-[0.2em] uppercase text-accent">
-                  Lab Dashboard
+                  Professional Overview
                 </span>
               </div>
             </AnimatedSection>
@@ -150,7 +150,7 @@ export default function Home() {
                   href="/experiments"
                   className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-dim text-white text-sm font-semibold rounded-xl transition-colors"
                 >
-                  View Experiments <ArrowRight className="h-4 w-4" />
+                  View Projects <ArrowRight className="h-4 w-4" />
                 </Link>
                 <Link
                   href="/services"
@@ -307,7 +307,7 @@ export default function Home() {
           <div className="flex items-center gap-3 mb-8">
             <div className="h-px w-8 bg-accent" />
             <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
-              Explore the Lab
+              Explore Portfolio
             </span>
           </div>
         </AnimatedSection>

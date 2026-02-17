@@ -103,7 +103,7 @@ export default function DesignStudioPage() {
     <div className="grid-bg min-h-screen">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
-          label="Storyboarding & Design Studio"
+          label="Prototypes"
           title="From Concept to Prototype"
           description="Storyboards, interaction wireframes, content chunking strategies, and slide-to-module transformations — with annotations explaining every design decision."
         />

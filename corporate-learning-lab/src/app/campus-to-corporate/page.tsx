@@ -1,136 +1,135 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "framer-motion";
 import {
   GraduationCap,
   Briefcase,
-  ArrowRight,
   Target,
-  Map,
   Route,
-  Monitor,
-  CheckCircle2,
-  Circle,
-  ChevronRight,
-  BarChart3,
-  Lightbulb,
   Users,
-  Zap,
+  FileText,
+  MessageSquare,
+  Compass,
+  ChevronRight,
+  ArrowRight,
+  Brain,
 } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import AnimatedSection from "@/components/AnimatedSection";
 
-const diagnosticQuestions = [
-  { question: "I can clearly articulate my top 3 transferable skills to an employer.", id: "q1" },
-  { question: "I understand how my academic projects translate to workplace deliverables.", id: "q2" },
-  { question: "I can describe a problem I solved using a structured methodology.", id: "q3" },
-  { question: "I have experience collaborating with stakeholders outside my peer group.", id: "q4" },
-  { question: "I can explain how I measure the effectiveness of my own work.", id: "q5" },
-  { question: "I am comfortable presenting work to non-expert audiences.", id: "q6" },
-];
-
-const skillDomains = [
+/* ── CAREER READINESS SUPPORT ── */
+const careerReadinessAreas = [
   {
-    domain: "Communication & Stakeholder Management",
-    academic: "Class presentations, group projects",
-    corporate: "SME interviews, client presentations, cross-functional collaboration",
-    bridge: "Practice structuring communication for non-expert audiences; learn to write executive summaries",
+    icon: FileText,
+    title: "Resume Strategy for L&D Roles",
+    description: "Translating academic projects, internships, and research into language that resonates with corporate hiring managers. Focus on outcomes, methodologies applied, and measurable impact — not just task descriptions.",
+    tips: [
+      "Lead with design methodology (ADDIE, UDL) rather than course titles",
+      "Quantify impact: learners reached, retention improvements, completion rates",
+      "Highlight tools used: Articulate 360, SCORM, LMS platforms",
+      "Frame academic work as 'projects' with stakeholders, not 'assignments'",
+    ],
   },
   {
-    domain: "Problem-Solving & Analysis",
-    academic: "Research methodology, literature reviews",
-    corporate: "Needs analysis, root cause analysis, data-driven decision making",
-    bridge: "Apply TNA frameworks to real scenarios; practice gap analysis with competency mapping",
-  },
-  {
-    domain: "Project Management",
-    academic: "Assignment deadlines, semester planning",
-    corporate: "Sprint planning, milestone tracking, stakeholder updates",
-    bridge: "Use project management tools; practice breaking large deliverables into phased milestones",
-  },
-  {
-    domain: "Technical & Tool Proficiency",
-    academic: "Academic writing tools, basic presentations",
-    corporate: "Articulate 360, LMS platforms, SCORM packaging, data visualization",
-    bridge: "Build portfolio projects using industry tools; earn tool-specific certifications",
-  },
-];
-
-const pathways = [
-  {
-    icon: Target,
-    title: "Instructional Design Track",
-    duration: "3–6 months",
-    steps: [
-      "Master ADDIE methodology and Bloom's Taxonomy application",
-      "Build 2–3 portfolio modules using Articulate 360",
-      "Learn SCORM packaging and LMS deployment",
-      "Complete a real-world TNA project",
-      "Develop assessment design capabilities",
+    icon: MessageSquare,
+    title: "Interview Preparation for ID Roles",
+    description: "Corporate instructional design interviews focus on process thinking, stakeholder management, and design rationale — not just portfolio showcase. Preparing for scenario-based questions and design challenges.",
+    tips: [
+      "Practice explaining your design process using ADDIE phases",
+      "Prepare a 'project walkthrough' that covers problem → analysis → design → impact",
+      "Be ready for 'how would you handle...' stakeholder scenarios",
+      "Know the difference between learning objectives and business objectives",
     ],
   },
   {
     icon: Users,
-    title: "L&D Generalist Track",
-    duration: "3–6 months",
-    steps: [
-      "Study training needs analysis frameworks",
-      "Understand competency mapping and gap analysis",
-      "Learn facilitation and workshop design",
-      "Build knowledge of blended learning strategies",
-      "Develop evaluation and impact measurement skills",
-    ],
-  },
-  {
-    icon: Monitor,
-    title: "E-Learning Development Track",
-    duration: "2–4 months",
-    steps: [
-      "Master Articulate 360 / Storyline for rapid authoring",
-      "Learn interaction design and scenario branching",
-      "Understand SCORM standards and LMS integration",
-      "Practice storyboarding and content chunking",
-      "Build a portfolio of 3+ interactive modules",
+    title: "Professional Communication",
+    description: "Bridging the gap between academic communication (research papers, presentations) and corporate communication (executive summaries, stakeholder updates, SME collaboration). Learning to communicate design decisions to non-designers.",
+    tips: [
+      "Write in outcomes, not process: 'This reduces ramp-up time' vs 'This uses Bloom's Taxonomy'",
+      "Practice structuring updates as: Context → Action → Result",
+      "Learn to present design rationale to non-expert stakeholders",
+      "Develop comfort with receiving and incorporating feedback iteratively",
     ],
   },
 ];
 
-const simulations = [
+/* ── TRANSITION COACHING ── */
+const transitionDomains = [
   {
-    title: "The Onboarding Challenge",
-    scenario: "You've joined a retail chain as an L&D coordinator. 50 new hires start next month. Design a 5-day onboarding plan.",
-    skills: ["Needs Analysis", "Program Design", "Stakeholder Management"],
+    title: "College to Corporate Mindset Shifts",
+    items: [
+      { campus: "Individual achievement", corporate: "Collaborative delivery", bridge: "Practice cross-functional project work; seek feedback from diverse stakeholders" },
+      { campus: "Theoretical knowledge", corporate: "Applied problem-solving", bridge: "Frame every project as 'solving a business problem' with measurable outcomes" },
+      { campus: "Semester-long timelines", corporate: "Sprint-based delivery", bridge: "Practice breaking deliverables into 2-week milestones with check-ins" },
+      { campus: "Professor as evaluator", corporate: "Stakeholder as partner", bridge: "Learn to manage expectations, negotiate scope, and present options (not just solutions)" },
+    ],
   },
   {
-    title: "The SME Interview",
-    scenario: "A subject matter expert has 30 minutes for you. Extract enough information to design a compliance training module.",
-    skills: ["Interviewing", "Content Extraction", "Rapid Prototyping"],
+    title: "Academic Skills → Corporate Roles Mapping",
+    items: [
+      { campus: "Research methodology", corporate: "Training Needs Analysis", bridge: "Apply survey design, data analysis, and literature review skills to organisational gap analysis" },
+      { campus: "Curriculum planning", corporate: "Learning pathway design", bridge: "Use backward design principles to architect competency-aligned learning experiences" },
+      { campus: "Classroom facilitation", corporate: "Workshop design & delivery", bridge: "Adapt facilitation for time-constrained corporate audiences with diverse expertise levels" },
+      { campus: "Academic writing", corporate: "Storyboarding & content design", bridge: "Translate long-form writing into visual, chunked, interaction-ready content formats" },
+    ],
+  },
+];
+
+/* ── LEARNING STRATEGY COACHING ── */
+const learningStrategies = [
+  {
+    icon: Brain,
+    title: "How to Learn: Metacognitive Strategies",
+    description: "Understanding your own learning process — spacing, retrieval practice, interleaving, and elaborative interrogation. These evidence-based strategies accelerate skill acquisition regardless of domain.",
+    strategies: [
+      "Spaced repetition: Review key concepts at increasing intervals (1 day, 3 days, 7 days, 14 days)",
+      "Retrieval practice: Test yourself before re-reading — active recall strengthens memory",
+      "Interleaving: Mix different skill areas in practice sessions rather than blocking",
+      "Elaborative interrogation: Ask 'why does this work?' and 'how does this connect?' for deeper encoding",
+    ],
   },
   {
-    title: "The Assessment Redesign",
-    scenario: "Existing assessments have a 95% pass rate but post-training performance hasn't improved. Diagnose and fix.",
-    skills: ["Assessment Design", "Bloom's Taxonomy", "Data Analysis"],
+    icon: Target,
+    title: "Skill-Building Roadmaps",
+    description: "Structured pathways for building competencies in instructional design, e-learning development, and L&D practice — from foundational knowledge through applied proficiency.",
+    strategies: [
+      "Foundation (Month 1–2): ADDIE, Bloom's Taxonomy, adult learning theory, basic authoring tools",
+      "Application (Month 3–4): Build 2–3 portfolio projects, practice TNA, learn SCORM/LMS",
+      "Specialisation (Month 5–6): Choose a focus — scenario design, assessment engineering, or inclusive design",
+      "Professional practice: Seek mentorship, contribute to ID communities, pursue certifications",
+    ],
   },
   {
-    title: "The Inclusive Learning Audit",
-    scenario: "Review an existing e-learning module for accessibility and UDL compliance. Recommend improvements.",
-    skills: ["UDL Framework", "Accessibility", "Design Review"],
+    icon: Compass,
+    title: "Career Direction: Finding Your L&D Niche",
+    description: "The learning design field is broader than most new professionals realise. Understanding the landscape helps you make informed career decisions.",
+    strategies: [
+      "Instructional Designer: Focus on content architecture, learning objectives, and assessment design",
+      "E-Learning Developer: Focus on authoring tools, interaction design, and SCORM packaging",
+      "L&D Consultant: Focus on needs analysis, stakeholder management, and program evaluation",
+      "Learning Experience Designer: Focus on user research, journey mapping, and learner-centred design",
+    ],
   },
+];
+
+/* ── RIASEC ── */
+const riasecDimensions = [
+  { code: "R", name: "Realistic", color: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20", description: "Prefers hands-on, practical work. Enjoys building, fixing, and working with tools or systems.", ldAlignment: "E-Learning Development, LMS Administration, Technical Training Design" },
+  { code: "I", name: "Investigative", color: "bg-sky-500/10 text-sky-400 border-sky-500/20", description: "Enjoys research, analysis, and problem-solving. Drawn to understanding how things work.", ldAlignment: "Training Needs Analysis, Learning Analytics, Research-Based Design, Evaluation" },
+  { code: "A", name: "Artistic", color: "bg-violet-500/10 text-violet-400 border-violet-500/20", description: "Values creativity, self-expression, and innovative approaches. Enjoys designing and creating.", ldAlignment: "Visual Design, Storyboarding, Content Design, Creative Module Development" },
+  { code: "S", name: "Social", color: "bg-amber-500/10 text-amber-400 border-amber-500/20", description: "Enjoys teaching, mentoring, and helping others develop. Drawn to collaborative work.", ldAlignment: "Facilitation, Coaching, Faculty Development, Inclusive Design, Mentoring" },
+  { code: "E", name: "Enterprising", color: "bg-rose-500/10 text-rose-400 border-rose-500/20", description: "Enjoys leadership, persuasion, and strategic planning. Drawn to managing projects and influencing outcomes.", ldAlignment: "L&D Strategy, Program Management, Stakeholder Consulting, Vendor Management" },
+  { code: "C", name: "Conventional", color: "bg-cyan-500/10 text-cyan-400 border-cyan-500/20", description: "Values organisation, accuracy, and systematic processes. Enjoys structured, detail-oriented work.", ldAlignment: "Assessment Design, Quality Assurance, SCORM Compliance, Curriculum Mapping" },
 ];
 
 export default function CampusToCorporatePage() {
-  const [answers, setAnswers] = useState<Record<string, boolean>>({});
-  const answeredCount = Object.values(answers).filter(Boolean).length;
-  const totalQuestions = diagnosticQuestions.length;
-
   return (
     <div className="grid-bg min-h-screen">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
-          label="Campus → Corporate Lab"
-          title="Bridge the Transition"
-          description="Diagnostic tools, skill mapping frameworks, structured learning pathways, and workplace simulations designed to accelerate your campus-to-corporate transition."
+          label="Campus → Corporate"
+          title="Career Development & Transition Support"
+          description="Career readiness coaching, campus-to-corporate transition support, learning strategy guidance, and career assessment tools — designed for emerging professionals entering the L&D and instructional design field."
         />
 
         {/* Transition Visual */}
@@ -143,14 +142,14 @@ export default function CampusToCorporatePage() {
                 </div>
                 <div>
                   <p className="text-sm font-bold">Campus</p>
-                  <p className="text-[10px] text-muted">Academic Environment</p>
+                  <p className="text-[10px] text-muted">Academic Foundation</p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
                 <div className="h-px w-8 bg-border" />
                 <div className="flex items-center gap-1 px-3 py-1.5 bg-accent/10 border border-accent/20 rounded-full">
                   <Route className="h-3 w-3 text-accent" />
-                  <span className="text-[10px] font-mono font-semibold text-accent">TRANSITION PATHWAY</span>
+                  <span className="text-[10px] font-mono font-semibold text-accent">GUIDED TRANSITION</span>
                 </div>
                 <div className="h-px w-8 bg-border" />
               </div>
@@ -160,200 +159,199 @@ export default function CampusToCorporatePage() {
                 </div>
                 <div>
                   <p className="text-sm font-bold">Corporate</p>
-                  <p className="text-[10px] text-muted">Professional Environment</p>
+                  <p className="text-[10px] text-muted">Professional Practice</p>
                 </div>
               </div>
             </div>
           </div>
         </AnimatedSection>
 
-        {/* Career Readiness Diagnostic */}
-        <AnimatedSection>
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-6">
+        {/* ── SECTION 1: Career Readiness Support ── */}
+        <div className="mb-16">
+          <AnimatedSection>
+            <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-8 bg-accent" />
               <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
-                Career Readiness Diagnostic
+                Career Readiness Support
               </span>
             </div>
-            <div className="card-glow rounded-2xl bg-card border border-border p-6 sm:p-8">
-              <p className="text-sm text-muted mb-6">
-                Self-assess your transition readiness. Check each statement that currently applies to you.
-              </p>
-              <div className="space-y-3 mb-6">
-                {diagnosticQuestions.map((q) => (
-                  <button
-                    key={q.id}
-                    onClick={() =>
-                      setAnswers((prev) => ({ ...prev, [q.id]: !prev[q.id] }))
-                    }
-                    className={`w-full flex items-center gap-3 p-4 rounded-xl border text-left transition-all text-sm ${
-                      answers[q.id]
-                        ? "bg-accent/10 border-accent/30 text-foreground"
-                        : "bg-surface border-border text-muted hover:border-accent/20"
-                    }`}
-                  >
-                    {answers[q.id] ? (
-                      <CheckCircle2 className="h-5 w-5 text-accent shrink-0" />
-                    ) : (
-                      <Circle className="h-5 w-5 text-muted/40 shrink-0" />
-                    )}
-                    {q.question}
-                  </button>
-                ))}
-              </div>
-              <div className="flex items-center gap-4 p-4 rounded-xl bg-surface border border-border">
-                <BarChart3 className="h-5 w-5 text-accent" />
-                <div className="flex-1">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-semibold">Readiness Score</span>
-                    <span className="text-xs font-mono text-accent">
-                      {answeredCount}/{totalQuestions}
-                    </span>
+          </AnimatedSection>
+
+          <div className="space-y-6">
+            {careerReadinessAreas.map((area, i) => {
+              const Icon = area.icon;
+              return (
+                <AnimatedSection key={area.title} delay={i * 0.08}>
+                  <div className="card-glow rounded-2xl bg-card border border-border p-6 sm:p-8 hover:border-accent/20 transition-colors">
+                    <div className="flex items-start gap-4 mb-4">
+                      <div className="h-10 w-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center shrink-0">
+                        <Icon className="h-5 w-5 text-accent" />
+                      </div>
+                      <div>
+                        <h3 className="text-base font-bold">{area.title}</h3>
+                        <p className="text-xs text-muted leading-relaxed mt-1">{area.description}</p>
+                      </div>
+                    </div>
+                    <div className="grid sm:grid-cols-2 gap-2 pl-14">
+                      {area.tips.map((tip, ti) => (
+                        <div key={ti} className="flex items-start gap-2 p-3 rounded-lg bg-surface border border-border">
+                          <ChevronRight className="h-3 w-3 text-accent mt-0.5 shrink-0" />
+                          <p className="text-xs text-muted leading-relaxed">{tip}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="h-2 bg-background rounded-full overflow-hidden">
-                    <motion.div
-                      className="h-full bg-accent rounded-full"
-                      animate={{ width: `${(answeredCount / totalQuestions) * 100}%` }}
-                      transition={{ duration: 0.3 }}
-                    />
+                </AnimatedSection>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* ── SECTION 2: Transition Coaching ── */}
+        <div className="mb-16">
+          <AnimatedSection>
+            <div className="flex items-center gap-3 mb-8">
+              <div className="h-px w-8 bg-accent" />
+              <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
+                Transition Coaching
+              </span>
+            </div>
+          </AnimatedSection>
+
+          <div className="space-y-6">
+            {transitionDomains.map((domain, di) => (
+              <AnimatedSection key={domain.title} delay={di * 0.08}>
+                <div className="card-glow rounded-2xl bg-card border border-border p-6 sm:p-8">
+                  <h3 className="text-base font-bold mb-4">{domain.title}</h3>
+                  <div className="space-y-3">
+                    {domain.items.map((item, ii) => (
+                      <div key={ii} className="rounded-xl bg-surface border border-border p-4">
+                        <div className="grid sm:grid-cols-3 gap-3">
+                          <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/10">
+                            <p className="text-[10px] font-mono font-semibold text-amber-400 mb-1">CAMPUS</p>
+                            <p className="text-xs text-muted">{item.campus}</p>
+                          </div>
+                          <div className="p-3 rounded-lg bg-accent/5 border border-accent/10">
+                            <p className="text-[10px] font-mono font-semibold text-accent mb-1">CORPORATE</p>
+                            <p className="text-xs text-muted">{item.corporate}</p>
+                          </div>
+                          <div className="p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/10">
+                            <p className="text-[10px] font-mono font-semibold text-cyan-400 mb-1">BRIDGE ACTION</p>
+                            <p className="text-xs text-muted">{item.bridge}</p>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-                <span className="text-xs text-muted">
-                  {answeredCount <= 2
-                    ? "Building foundations"
-                    : answeredCount <= 4
-                    ? "Making progress"
-                    : "Strong readiness"}
-                </span>
-              </div>
-            </div>
+              </AnimatedSection>
+            ))}
           </div>
-        </AnimatedSection>
+        </div>
 
-        {/* Skill Mapping */}
-        <AnimatedSection>
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-6">
+        {/* ── SECTION 3: Learning Strategy Coaching ── */}
+        <div className="mb-16">
+          <AnimatedSection>
+            <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-8 bg-accent" />
               <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
-                Skill Mapping
+                Learning Strategy Coaching
               </span>
             </div>
-            <div className="space-y-4">
-              {skillDomains.map((skill, i) => (
-                <motion.div
-                  key={skill.domain}
-                  whileHover={{ x: 2 }}
-                  className="card-glow rounded-xl bg-card border border-border p-5 hover:border-accent/20 transition-colors"
-                >
-                  <h4 className="text-sm font-bold mb-3 flex items-center gap-2">
-                    <Map className="h-4 w-4 text-accent" />
-                    {skill.domain}
-                  </h4>
-                  <div className="grid sm:grid-cols-3 gap-3">
-                    <div className="p-3 rounded-lg bg-amber-500/5 border border-amber-500/10">
-                      <p className="text-[10px] font-mono font-semibold text-amber-400 mb-1">CAMPUS</p>
-                      <p className="text-xs text-muted">{skill.academic}</p>
-                    </div>
-                    <div className="p-3 rounded-lg bg-accent/5 border border-accent/10">
-                      <p className="text-[10px] font-mono font-semibold text-accent mb-1">CORPORATE</p>
-                      <p className="text-xs text-muted">{skill.corporate}</p>
-                    </div>
-                    <div className="p-3 rounded-lg bg-cyan-500/5 border border-cyan-500/10">
-                      <p className="text-[10px] font-mono font-semibold text-cyan-400 mb-1">BRIDGE ACTION</p>
-                      <p className="text-xs text-muted">{skill.bridge}</p>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </AnimatedSection>
+          </AnimatedSection>
 
-        {/* Learning Pathways */}
-        <AnimatedSection>
-          <div className="mb-16">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="h-px w-8 bg-accent" />
-              <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
-                Learning Pathways
-              </span>
-            </div>
-            <div className="grid md:grid-cols-3 gap-4">
-              {pathways.map((path, pi) => {
-                const Icon = path.icon;
-                return (
-                  <motion.div
-                    key={path.title}
-                    whileHover={{ y: -4 }}
-                    className="card-glow rounded-2xl bg-card border border-border p-6 hover:border-accent/20 transition-colors"
-                  >
+          <div className="grid md:grid-cols-3 gap-6">
+            {learningStrategies.map((strategy, si) => {
+              const Icon = strategy.icon;
+              return (
+                <AnimatedSection key={strategy.title} delay={si * 0.08}>
+                  <div className="card-glow rounded-2xl bg-card border border-border p-6 h-full hover:border-accent/20 transition-colors">
                     <div className="flex items-center gap-3 mb-4">
                       <div className="h-10 w-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
                         <Icon className="h-5 w-5 text-accent" />
                       </div>
-                      <div>
-                        <h4 className="text-sm font-bold">{path.title}</h4>
-                        <p className="text-[10px] text-muted font-mono">{path.duration}</p>
-                      </div>
+                      <h3 className="text-sm font-bold">{strategy.title}</h3>
                     </div>
-                    <div className="space-y-2.5">
-                      {path.steps.map((step, si) => (
-                        <div key={si} className="flex items-start gap-2">
-                          <div className="flex flex-col items-center mt-1">
-                            <div className="h-4 w-4 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
-                              <span className="text-[8px] font-bold text-accent">{si + 1}</span>
-                            </div>
-                            {si < path.steps.length - 1 && (
-                              <div className="w-px h-4 bg-border mt-0.5" />
-                            )}
-                          </div>
-                          <p className="text-xs text-muted leading-relaxed">{step}</p>
+                    <p className="text-xs text-muted leading-relaxed mb-4">{strategy.description}</p>
+                    <div className="space-y-2">
+                      {strategy.strategies.map((s, si2) => (
+                        <div key={si2} className="flex items-start gap-2 text-xs text-muted">
+                          <div className="h-1.5 w-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
+                          <span className="leading-relaxed">{s}</span>
                         </div>
                       ))}
                     </div>
-                  </motion.div>
-                );
-              })}
-            </div>
+                  </div>
+                </AnimatedSection>
+              );
+            })}
           </div>
-        </AnimatedSection>
+        </div>
 
-        {/* Workplace Simulations */}
-        <AnimatedSection>
-          <div>
-            <div className="flex items-center gap-3 mb-6">
+        {/* ── SECTION 4: RIASEC Career Assessment ── */}
+        <div>
+          <AnimatedSection>
+            <div className="flex items-center gap-3 mb-4">
               <div className="h-px w-8 bg-accent" />
               <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
-                Workplace Simulations
+                RIASEC Career Assessment Overview
               </span>
             </div>
-            <div className="grid sm:grid-cols-2 gap-4">
-              {simulations.map((sim, i) => (
-                <motion.div
-                  key={sim.title}
-                  whileHover={{ scale: 1.01 }}
-                  className="card-glow rounded-xl bg-card border border-border p-6 hover:border-accent/20 transition-colors"
-                >
-                  <div className="flex items-center gap-2 mb-3">
-                    <Zap className="h-4 w-4 text-accent" />
-                    <h4 className="text-sm font-bold">{sim.title}</h4>
-                  </div>
-                  <p className="text-xs text-muted leading-relaxed mb-4">{sim.scenario}</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {sim.skills.map((skill) => (
-                      <span
-                        key={skill}
-                        className="px-2 py-0.5 text-[10px] font-medium bg-surface border border-border rounded-md text-muted"
-                      >
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
+          </AnimatedSection>
+
+          <AnimatedSection>
+            <div className="card-glow rounded-2xl bg-card border border-border p-6 sm:p-8 mb-6">
+              <h3 className="text-base font-bold mb-2">What is RIASEC?</h3>
+              <p className="text-sm text-muted leading-relaxed mb-4">
+                The RIASEC model (Holland&apos;s Career Typology) classifies career interests into six dimensions: Realistic, Investigative, Artistic, Social, Enterprising, and Conventional. Understanding your dominant dimensions helps align career choices with natural interests and strengths — particularly valuable for professionals exploring the broad field of Learning & Development.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3 mb-6">
+                <div className="p-3 rounded-lg bg-surface border border-border">
+                  <p className="text-xs font-semibold mb-1">What It Measures</p>
+                  <p className="text-[11px] text-muted leading-relaxed">Career interest patterns across six dimensions, revealing which work environments, activities, and roles align with your natural preferences and strengths.</p>
+                </div>
+                <div className="p-3 rounded-lg bg-surface border border-border">
+                  <p className="text-xs font-semibold mb-1">How to Interpret Results</p>
+                  <p className="text-[11px] text-muted leading-relaxed">Your top 2–3 dimensions form your career code (e.g., &quot;ISA&quot; = Investigative-Social-Artistic). This code maps to specific L&D career pathways shown below.</p>
+                </div>
+              </div>
             </div>
+          </AnimatedSection>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {riasecDimensions.map((dim, di) => (
+              <AnimatedSection key={dim.code} delay={di * 0.06}>
+                <div className="card-glow rounded-xl bg-card border border-border p-5 h-full hover:border-accent/20 transition-colors">
+                  <div className="flex items-center gap-3 mb-3">
+                    <div className={`h-10 w-10 rounded-lg border flex items-center justify-center ${dim.color}`}>
+                      <span className="text-lg font-bold">{dim.code}</span>
+                    </div>
+                    <h4 className="text-sm font-bold">{dim.name}</h4>
+                  </div>
+                  <p className="text-xs text-muted leading-relaxed mb-3">{dim.description}</p>
+                  <div className="p-3 rounded-lg bg-accent/5 border border-accent/10">
+                    <p className="text-[10px] font-mono font-semibold text-accent mb-1">L&D CAREER ALIGNMENT</p>
+                    <p className="text-[11px] text-muted leading-relaxed">{dim.ldAlignment}</p>
+                  </div>
+                </div>
+              </AnimatedSection>
+            ))}
+          </div>
+        </div>
+
+        {/* CTA */}
+        <AnimatedSection>
+          <div className="mt-16 p-8 rounded-2xl bg-card border border-border text-center">
+            <h3 className="text-lg font-bold mb-2">Need Transition Support?</h3>
+            <p className="text-xs text-muted mb-6 max-w-md mx-auto">
+              Whether you&apos;re a student exploring L&D careers or a professional transitioning into instructional design, I offer guidance grounded in real project experience.
+            </p>
+            <a
+              href="mailto:prekshakothari06@gmail.com?subject=Career Transition Support"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-dim text-white text-sm font-semibold rounded-xl transition-colors"
+            >
+              Start a Conversation <ArrowRight className="h-4 w-4" />
+            </a>
           </div>
         </AnimatedSection>
       </div>
