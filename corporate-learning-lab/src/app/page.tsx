@@ -138,7 +138,7 @@ export default function Home() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.2}>
-              <p style={{ color: '#a8b4cc' }} className="mt-6 text-lg sm:text-xl max-w-2xl leading-relaxed">
+              <p style={{ color: '#a8b4cc' }} className="mt-6 text-base sm:text-xl max-w-2xl leading-relaxed">
                 For workplaces, campuses, and career transitions — blending instructional design, 
                 educational psychology, and performance engineering into measurable learning outcomes.
               </p>
@@ -181,13 +181,13 @@ export default function Home() {
                     </p>
                   </div>
                 </div>
-                <p className="text-sm text-muted leading-relaxed">
+                <p className="text-sm sm:text-sm text-muted leading-relaxed">
                   Instructional designer bridging corporate L&D and educational psychology. I architect
                   ADDIE-based learning systems — from training needs analysis and storyboarding through
                   SCORM-compliant deployment — engineered to close skill gaps, accelerate onboarding,
                   and drive measurable performance outcomes across diverse learner populations.
                 </p>
-                <p className="text-sm text-muted leading-relaxed">
+                <p className="text-sm sm:text-sm text-muted leading-relaxed">
                   My work spans corporate onboarding design for frontline staff, faculty development
                   programs, inclusive learning interventions for neurodiverse learners, and competency-mapped
                   assessment architectures — always grounded in evidence-based design and systems thinking.
@@ -271,8 +271,8 @@ export default function Home() {
                 >
                   <Icon className="h-5 w-5 text-accent mx-auto mb-3 group-hover:scale-110 transition-transform" />
                   <p className="text-2xl sm:text-3xl font-bold text-gradient">{metric.value}</p>
-                  <p className="text-xs font-semibold mt-1">{metric.label}</p>
-                  <p className="text-[10px] text-muted mt-1 leading-tight">{metric.sub}</p>
+                  <p className="text-xs sm:text-xs font-semibold mt-1">{metric.label}</p>
+                  <p className="text-[11px] sm:text-[10px] text-muted mt-1 leading-tight">{metric.sub}</p>
                 </div>
               </AnimatedSection>
             );
@@ -327,11 +327,11 @@ export default function Home() {
                     >
                       <Icon className="h-5 w-5 text-foreground" />
                     </div>
-                    <h3 className="text-sm font-bold mb-2 group-hover:text-accent transition-colors flex items-center gap-2">
+                    <h3 className="text-sm sm:text-sm font-bold mb-2 group-hover:text-accent transition-colors flex items-center gap-2">
                       {tile.title}
                       <ChevronRight className="h-3.5 w-3.5 opacity-0 group-hover:opacity-100 transition-opacity" />
                     </h3>
-                    <p className="text-xs text-muted leading-relaxed">{tile.desc}</p>
+                    <p className="text-xs sm:text-xs text-muted leading-relaxed">{tile.desc}</p>
                   </div>
                 </Link>
               </AnimatedSection>

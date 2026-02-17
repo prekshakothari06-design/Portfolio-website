@@ -28,6 +28,7 @@ export default function RootLayout({
   return (
     <html lang="en" style={{ colorScheme: 'dark' }}>
       <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
         <style dangerouslySetInnerHTML={{ __html: `
           html { color-scheme: dark; color: #e2e5eb; }
           body { background-color: #0b0d14 !important; color: #e2e5eb !important; }
