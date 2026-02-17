@@ -352,7 +352,9 @@ export default function RoundtablePage() {
             </p>
             <div className="flex justify-center gap-3">
               <a
-                href="mailto:prekshakothari06@gmail.com?subject=Roundtable Discussion"
+                href="https://mail.google.com/mail/?view=cm&fs=1&to=prekshakothari06@gmail.com&su=Roundtable+Discussion"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-accent-dim text-white text-xs font-semibold rounded-xl transition-colors"
               >
                 <Send className="h-3.5 w-3.5" /> Submit a Topic

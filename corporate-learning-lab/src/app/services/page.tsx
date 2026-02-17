@@ -227,7 +227,9 @@ export default function ServicesPage() {
               Whether you need a full onboarding redesign, a training needs analysis, or an inclusive curriculum audit — the process starts with a conversation.
             </p>
             <a
-              href="mailto:prekshakothari06@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=prekshakothari06@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-dim text-white text-sm font-semibold rounded-xl transition-colors"
             >
               Start a Conversation <ArrowRight className="h-4 w-4" />

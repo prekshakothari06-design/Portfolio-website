@@ -347,7 +347,9 @@ export default function CampusToCorporatePage() {
               Whether you&apos;re a student exploring L&D careers or a professional transitioning into instructional design, I offer guidance grounded in real project experience.
             </p>
             <a
-              href="mailto:prekshakothari06@gmail.com?subject=Career Transition Support"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=prekshakothari06@gmail.com&su=Career+Transition+Support"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-dim text-white text-sm font-semibold rounded-xl transition-colors"
             >
               Start a Conversation <ArrowRight className="h-4 w-4" />

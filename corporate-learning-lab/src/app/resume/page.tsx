@@ -231,7 +231,9 @@ export default function ResumePage() {
               Interested in collaborating? Let&apos;s connect.
             </p>
             <a
-              href="mailto:prekshakothari06@gmail.com"
+              href="https://mail.google.com/mail/?view=cm&fs=1&to=prekshakothari06@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
               className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent-dim text-white text-sm font-semibold rounded-xl transition-colors"
             >
               <FileText className="h-4 w-4" /> Get in Touch
