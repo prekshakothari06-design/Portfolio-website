@@ -118,7 +118,7 @@ export default function Home() {
       {/* ── HERO ── */}
       <section className="relative overflow-hidden">
         {/* overlay removed for visibility */}
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
+        <div className="mx-auto max-w-7xl px-5 sm:px-6 lg:px-8 py-16 sm:py-28 lg:py-36">
           <div className="max-w-4xl">
             <AnimatedSection>
               <div className="flex items-center gap-3 mb-6">
@@ -130,7 +130,7 @@ export default function Home() {
             </AnimatedSection>
 
             <AnimatedSection delay={0.1}>
-              <h1 style={{ color: '#ffffff' }} className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
+              <h1 style={{ color: '#ffffff' }} className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-[1.1]">
                 Designing Learning
                 <br />
                 <span className="text-gradient">Systems That Work</span>
@@ -167,9 +167,9 @@ export default function Home() {
       {/* ── BIO CARD ── */}
       <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-20">
         <AnimatedSection>
-          <div className="card-glow rounded-2xl bg-card border border-border p-8 sm:p-10">
-            <div className="grid md:grid-cols-3 gap-8">
-              <div className="md:col-span-2 space-y-4">
+          <div className="card-glow rounded-2xl bg-card border border-border p-5 sm:p-8 lg:p-10">
+            <div className="grid lg:grid-cols-3 gap-6 lg:gap-8">
+              <div className="lg:col-span-2 space-y-4">
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 rounded-xl bg-accent/10 border border-accent/20 flex items-center justify-center text-xl font-bold text-accent">
                     PK
@@ -208,7 +208,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 text-xs text-muted hover:text-accent transition-colors"
                   >
-                    <Mail className="h-3.5 w-3.5" /> prekshakothari06@gmail.com
+                    <Mail className="h-3.5 w-3.5" /> <span className="hidden sm:inline">prekshakothari06@gmail.com</span><span className="sm:hidden">Email</span>
                   </a>
                 </div>
               </div>
@@ -261,7 +261,7 @@ export default function Home() {
             </span>
           </div>
         </AnimatedSection>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3 sm:gap-4">
           {metrics.map((metric, i) => {
             const Icon = metric.icon;
             return (
@@ -313,7 +313,7 @@ export default function Home() {
             </span>
           </div>
         </AnimatedSection>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           {navTiles.map((tile, i) => {
             const Icon = tile.icon;
             return (

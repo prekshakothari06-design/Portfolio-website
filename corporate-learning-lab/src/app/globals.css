@@ -123,9 +123,9 @@ a[href*="gmail"], a[href*="mailto"] {
   word-break: break-all;
 }
 
-/* Mobile: slightly larger base text for readability */
+/* Mobile: larger base text for readability */
 @media (max-width: 639px) {
   html {
-    font-size: 17px;
+    font-size: 18px;
   }
 }
