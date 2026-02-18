@@ -17,7 +17,7 @@ export default function SectionHeader({ label, title, description }: SectionHead
           {label}
         </span>
       </div>
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight">
+      <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight leading-tight text-heading">
         {title}
       </h1>
       {description && (

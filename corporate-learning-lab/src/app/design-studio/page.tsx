@@ -3,21 +3,16 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import {
-  PenTool,
   Layout,
-  Layers,
   FileText,
-  ArrowRight,
-  Eye,
   MessageSquare,
   ChevronRight,
-  Monitor,
   Lightbulb,
   CheckCircle2,
-  Maximize2,
 } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import AnimatedSection from "@/components/AnimatedSection";
+import { generateStoryboardPdf } from "@/lib/generatePdf";
 
 const storyboards = [
   {
@@ -100,7 +95,7 @@ export default function DesignStudioPage() {
   const board = storyboards[activeStoryboard];
 
   return (
-    <div className="grid-bg min-h-screen">
+    <div className="warm-bg min-h-screen">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
           label="Prototypes"
@@ -113,7 +108,7 @@ export default function DesignStudioPage() {
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8 bg-accent" />
-              <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
+              <span className="text-xs font-semibold tracking-widest uppercase text-accent">
                 Storyboard Artefacts
               </span>
             </div>
@@ -125,10 +120,10 @@ export default function DesignStudioPage() {
                 <button
                   key={i}
                   onClick={() => setActiveStoryboard(i)}
-                  className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                  className={`px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                     activeStoryboard === i
-                      ? "bg-accent text-white"
-                      : "bg-card border border-border text-muted hover:text-foreground"
+                      ? "bg-accent text-white shadow-sm"
+                      : "bg-white border border-border text-muted hover:text-foreground"
                   }`}
                 >
                   {sb.type}
@@ -138,16 +133,24 @@ export default function DesignStudioPage() {
           </AnimatedSection>
 
           <AnimatedSection>
-            <div className="card-glow rounded-2xl bg-card border border-border p-6 sm:p-8">
+            <div className="soft-card p-6 sm:p-8">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h3 className="text-base font-bold">{board.title}</h3>
-                  <p className="text-xs text-muted font-mono mt-1">Type: {board.type}</p>
+                  <h3 className="text-base font-bold text-heading">{board.title}</h3>
+                  <p className="text-xs text-muted mt-1">Type: {board.type}</p>
                 </div>
-                <div className="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full">
-                  <span className="text-[10px] font-mono font-semibold text-accent">
-                    {board.screens.length} SCREENS
-                  </span>
+                <div className="flex items-center gap-3">
+                  <div className="px-3 py-1 bg-accent/10 border border-accent/20 rounded-full">
+                    <span className="text-[10px] font-semibold text-accent">
+                      {board.screens.length} SCREENS
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => { const doc = generateStoryboardPdf(board.title); doc.save(`Storyboard_${board.type.replace(/\s/g, '_')}.pdf`); }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-accent hover:bg-accent-dim text-white rounded-full text-[10px] font-semibold transition-colors shadow-sm"
+                  >
+                    <FileText className="h-3 w-3" /> Download PDF
+                  </button>
                 </div>
               </div>
 
@@ -160,7 +163,7 @@ export default function DesignStudioPage() {
                     className="p-4 rounded-xl bg-surface border border-border hover:border-accent/20 transition-colors group"
                   >
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-[10px] font-mono font-bold text-accent">{screen.id}</span>
+                      <span className="text-[10px] font-bold text-accent">{screen.id}</span>
                       <span className={`text-[9px] font-semibold px-1.5 py-0.5 rounded ${
                         screen.type === "Assessment" ? "bg-rose-500/10 text-rose-400" :
                         screen.type === "Branching" ? "bg-amber-500/10 text-amber-400" :
@@ -172,8 +175,8 @@ export default function DesignStudioPage() {
                         {screen.type}
                       </span>
                     </div>
-                    <h4 className="text-xs font-semibold mb-1">{screen.label}</h4>
-                    <p className="text-[10px] text-muted leading-relaxed">{screen.note}</p>
+                    <h4 className="text-xs font-semibold text-heading mb-1">{screen.label}</h4>
+                    <p className="text-xs text-muted leading-relaxed">{screen.note}</p>
                   </motion.div>
                 ))}
               </div>
@@ -182,13 +185,13 @@ export default function DesignStudioPage() {
               <div className="p-4 rounded-xl bg-surface border border-border">
                 <div className="flex items-center gap-2 mb-3">
                   <Lightbulb className="h-4 w-4 text-accent" />
-                  <h4 className="text-xs font-semibold">Design Decisions & Annotations</h4>
+                  <h4 className="text-xs font-semibold text-heading">Design Decisions & Annotations</h4>
                 </div>
                 <div className="space-y-2">
                   {board.designDecisions.map((decision, i) => (
                     <div key={i} className="flex items-start gap-2">
                       <ChevronRight className="h-3 w-3 text-accent mt-0.5 shrink-0" />
-                      <p className="text-xs text-muted leading-relaxed">{decision}</p>
+                      <p className="text-sm text-muted leading-relaxed">{decision}</p>
                     </div>
                   ))}
                 </div>
@@ -202,7 +205,7 @@ export default function DesignStudioPage() {
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8 bg-accent" />
-              <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
+              <span className="text-xs font-semibold tracking-widest uppercase text-accent">
                 Interaction Wireframes
               </span>
             </div>
@@ -213,13 +216,13 @@ export default function DesignStudioPage() {
               <AnimatedSection key={wf.title} delay={i * 0.1}>
                 <motion.div
                   whileHover={{ y: -4 }}
-                  className="card-glow rounded-xl bg-card border border-border p-6 h-full hover:border-accent/20 transition-colors"
+                  className="soft-card p-6 h-full"
                 >
                   <div className="flex items-center gap-2 mb-3">
                     <Layout className="h-4 w-4 text-accent" />
-                    <h4 className="text-sm font-bold">{wf.title}</h4>
+                    <h4 className="text-sm font-bold text-heading">{wf.title}</h4>
                   </div>
-                  <p className="text-xs text-muted leading-relaxed mb-4">{wf.description}</p>
+                  <p className="text-sm text-muted leading-relaxed mb-4">{wf.description}</p>
 
                   {/* Wireframe Visual */}
                   <div className="p-3 rounded-lg bg-surface border border-border mb-4 space-y-1.5">
@@ -251,12 +254,12 @@ export default function DesignStudioPage() {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <div className="h-px w-8 bg-accent" />
-              <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
+              <span className="text-xs font-semibold tracking-widest uppercase text-accent">
                 Slide → Module Transformation
               </span>
             </div>
             {chunkingExamples.map((example, i) => (
-              <div key={i} className="card-glow rounded-2xl bg-card border border-border p-6 sm:p-8">
+              <div key={i} className="soft-card p-6 sm:p-8">
                 <div className="grid md:grid-cols-2 gap-6 mb-6">
                   <div className="p-4 rounded-xl bg-rose-500/5 border border-rose-500/10">
                     <p className="text-[10px] font-mono font-semibold text-rose-400 mb-2">BEFORE — SINGLE SLIDE DECK</p>

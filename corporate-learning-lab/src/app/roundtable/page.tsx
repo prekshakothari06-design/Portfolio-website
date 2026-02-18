@@ -190,12 +190,40 @@ const posts: ForumPost[] = [
 function ForumThread({ post }: { post: ForumPost }) {
   const [expanded, setExpanded] = useState(false);
   const [showComments, setShowComments] = useState(false);
+  const [liked, setLiked] = useState(false);
+  const [likeCount, setLikeCount] = useState(post.reactions);
+  const [newComment, setNewComment] = useState("");
+  const [localComments, setLocalComments] = useState(post.comments);
+  const [replyingTo, setReplyingTo] = useState<number | null>(null);
+  const [replyTexts, setReplyTexts] = useState<Record<number, string>>({});
+  const [commentLikes, setCommentLikes] = useState<Record<number, boolean>>({});
+
+  const handleLike = () => {
+    setLiked(!liked);
+    setLikeCount(liked ? likeCount - 1 : likeCount + 1);
+  };
+
+  const handleAddComment = () => {
+    if (!newComment.trim()) return;
+    setLocalComments([...localComments, { author: "You", role: "Reader", text: newComment.trim() }]);
+    setNewComment("");
+  };
+
+  const handleReply = (idx: number) => {
+    const text = replyTexts[idx];
+    if (!text?.trim()) return;
+    const updated = [...localComments];
+    updated.splice(idx + 1, 0, { author: "You", role: "Reply", text: `@${localComments[idx].author} ${text.trim()}` });
+    setLocalComments(updated);
+    setReplyingTo(null);
+    setReplyTexts({ ...replyTexts, [idx]: "" });
+  };
 
   return (
-    <article className="card-glow rounded-2xl bg-card border border-border overflow-hidden hover:border-accent/20 transition-colors">
+    <article className="soft-card overflow-hidden">
       <div className="p-6 sm:p-8">
         <div className="flex items-center gap-3 mb-3">
-          <span className="text-[10px] font-mono font-semibold text-accent tracking-wider uppercase">
+          <span className="text-[10px] font-semibold text-accent tracking-wider uppercase">
             {post.category.replace(/-/g, " ")}
           </span>
           <div className="flex items-center gap-1 text-[10px] text-muted">
@@ -205,13 +233,13 @@ function ForumThread({ post }: { post: ForumPost }) {
         </div>
 
         <h3
-          className="text-lg font-bold mb-1 cursor-pointer hover:text-accent transition-colors"
+          className="text-lg font-bold mb-1 cursor-pointer hover:text-accent transition-colors text-heading"
           onClick={() => setExpanded(!expanded)}
         >
           {post.title}
         </h3>
-        <p className="text-xs text-muted mb-4 flex items-center gap-1.5">
-          <User className="h-3 w-3" /> {post.author}
+        <p className="text-sm text-muted mb-4 flex items-center gap-1.5">
+          <User className="h-3.5 w-3.5" /> {post.author}
         </p>
 
         {!expanded && (
@@ -228,7 +256,7 @@ function ForumThread({ post }: { post: ForumPost }) {
               <p className="text-xs font-semibold text-accent mb-2">Discussion Questions</p>
               <div className="space-y-2">
                 {post.discussionQuestions.map((q, i) => (
-                  <p key={i} className="text-xs text-muted leading-relaxed flex items-start gap-2">
+                  <p key={i} className="text-sm text-muted leading-relaxed flex items-start gap-2">
                     <span className="text-accent font-bold shrink-0">{i + 1}.</span>
                     {q}
                   </p>
@@ -243,49 +271,105 @@ function ForumThread({ post }: { post: ForumPost }) {
             {post.tags.map((tag) => (
               <span
                 key={tag}
-                className="flex items-center gap-1 px-2 py-0.5 text-[10px] font-medium bg-surface border border-border rounded-md text-muted"
+                className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium bg-surface border border-border rounded-full text-muted"
               >
                 <Tag className="h-2.5 w-2.5" />
                 {tag}
               </span>
             ))}
           </div>
-          <div className="flex items-center gap-3 text-[10px] text-muted shrink-0">
-            <span className="flex items-center gap-1">
-              <ThumbsUp className="h-3 w-3" /> {post.reactions}
-            </span>
+          <div className="flex items-center gap-3 text-xs text-muted shrink-0">
             <button
-              onClick={() => setShowComments(!showComments)}
+              onClick={handleLike}
+              className={`flex items-center gap-1 transition-colors ${liked ? "text-accent font-semibold" : "hover:text-accent"}`}
+            >
+              <ThumbsUp className={`h-3.5 w-3.5 ${liked ? "fill-accent" : ""}`} /> {likeCount}
+            </button>
+            <button
+              onClick={() => { setShowComments(!showComments); if (!showComments) setExpanded(true); }}
               className="flex items-center gap-1 hover:text-accent transition-colors"
             >
-              <MessageCircle className="h-3 w-3" /> {post.comments.length} replies
+              <MessageCircle className="h-3.5 w-3.5" /> {localComments.length}
             </button>
             <button
               onClick={() => setExpanded(!expanded)}
               className="flex items-center gap-1 hover:text-accent transition-colors"
             >
-              {expanded ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
-              {expanded ? "Collapse" : "Expand"}
+              {expanded ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
+              {expanded ? "Less" : "More"}
             </button>
           </div>
         </div>
       </div>
 
-      {showComments && post.comments.length > 0 && (
-        <div className="border-t border-border bg-surface/50 px-6 sm:px-8 py-4 space-y-3">
-          <p className="text-[10px] font-mono font-semibold text-accent tracking-wider uppercase mb-3">Replies</p>
-          {post.comments.map((comment, i) => (
-            <div key={i} className="p-4 rounded-xl bg-card border border-border">
+      {showComments && (
+        <div className="border-t border-border bg-surface/50 px-6 sm:px-8 py-5 space-y-3">
+          <p className="text-xs font-semibold text-accent tracking-wider uppercase mb-3">
+            {localComments.length} {localComments.length === 1 ? "Reply" : "Replies"}
+          </p>
+          {localComments.map((comment, i) => (
+            <div key={i} className="p-4 rounded-xl bg-white border border-border">
               <div className="flex items-center gap-2 mb-2">
-                <div className="h-6 w-6 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
-                  <User className="h-3 w-3 text-accent" />
+                <div className="h-7 w-7 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
+                  <User className="h-3.5 w-3.5 text-accent" />
                 </div>
-                <span className="text-xs font-semibold">{comment.author}</span>
-                <span className="text-[10px] text-muted">{comment.role}</span>
+                <span className="text-sm font-semibold text-heading">{comment.author}</span>
+                <span className="text-xs text-muted">{comment.role}</span>
               </div>
-              <p className="text-xs text-muted leading-relaxed pl-8">{comment.text}</p>
+              <p className="text-sm text-muted leading-relaxed pl-9">{comment.text}</p>
+              <div className="flex items-center gap-3 pl-9 mt-2">
+                <button
+                  onClick={() => setCommentLikes({ ...commentLikes, [i]: !commentLikes[i] })}
+                  className={`flex items-center gap-1 text-xs transition-colors ${commentLikes[i] ? "text-accent" : "text-muted hover:text-accent"}`}
+                >
+                  <ThumbsUp className={`h-3 w-3 ${commentLikes[i] ? "fill-accent" : ""}`} />
+                  {commentLikes[i] ? "Liked" : "Like"}
+                </button>
+                <button
+                  onClick={() => setReplyingTo(replyingTo === i ? null : i)}
+                  className="text-xs text-muted hover:text-accent transition-colors flex items-center gap-1"
+                >
+                  <MessageCircle className="h-3 w-3" /> Reply
+                </button>
+              </div>
+              {replyingTo === i && (
+                <div className="pl-9 mt-3 flex gap-2">
+                  <input
+                    type="text"
+                    value={replyTexts[i] || ""}
+                    onChange={(e) => setReplyTexts({ ...replyTexts, [i]: e.target.value })}
+                    placeholder={`Reply to ${comment.author}...`}
+                    className="flex-1 px-3 py-2 text-sm rounded-full border border-border bg-surface focus:border-accent focus:outline-none"
+                    onKeyDown={(e) => e.key === "Enter" && handleReply(i)}
+                  />
+                  <button
+                    onClick={() => handleReply(i)}
+                    className="px-3 py-2 bg-accent text-white rounded-full text-xs font-semibold hover:bg-accent-dim transition-colors"
+                  >
+                    <Send className="h-3.5 w-3.5" />
+                  </button>
+                </div>
+              )}
             </div>
           ))}
+
+          {/* New comment input */}
+          <div className="flex gap-2 mt-4">
+            <input
+              type="text"
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              placeholder="Add a comment..."
+              className="flex-1 px-4 py-2.5 text-sm rounded-full border border-border bg-white focus:border-accent focus:outline-none"
+              onKeyDown={(e) => e.key === "Enter" && handleAddComment()}
+            />
+            <button
+              onClick={handleAddComment}
+              className="px-4 py-2.5 bg-accent text-white rounded-full text-xs font-semibold hover:bg-accent-dim transition-colors flex items-center gap-1.5"
+            >
+              <Send className="h-3.5 w-3.5" /> Post
+            </button>
+          </div>
         </div>
       )}
     </article>
@@ -297,12 +381,12 @@ export default function RoundtablePage() {
   const filtered = active === "all" ? posts : posts.filter((p) => p.category === active);
 
   return (
-    <div className="grid-bg min-h-screen">
+    <div className="warm-bg min-h-screen">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
           label="Learning Design Roundtable"
           title="Perspectives, Debates & Discussions"
-          description="An interactive discussion space for the learning design community. Explore thought leadership posts, instructional design debates, tool comparisons, and open discussion prompts — each with full context and community responses."
+          description="An interactive discussion space for the learning design community. Explore thought leadership posts, instructional design debates, tool comparisons, and open discussion prompts \u2014 each with full context and community responses."
         />
 
         {/* Category Filter */}
@@ -315,10 +399,10 @@ export default function RoundtablePage() {
                 <button
                   key={cat.key}
                   onClick={() => setActive(cat.key)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-semibold transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
                     isActive
-                      ? "bg-accent text-white"
-                      : "bg-card border border-border text-muted hover:text-foreground hover:border-accent/30"
+                      ? "bg-accent text-white shadow-sm"
+                      : "bg-white border border-border text-muted hover:text-foreground hover:border-accent/30"
                   }`}
                 >
                   <Icon className="h-3.5 w-3.5" />
@@ -345,17 +429,17 @@ export default function RoundtablePage() {
 
         {/* CTA */}
         <AnimatedSection>
-          <div className="mt-16 p-8 rounded-2xl bg-card border border-border text-center">
-            <h3 className="text-lg font-bold mb-2">Join the Conversation</h3>
-            <p className="text-xs text-muted mb-6 max-w-md mx-auto">
+          <div className="mt-16 soft-card p-8 text-center">
+            <h3 className="text-lg font-bold mb-2 text-heading">Join the Conversation</h3>
+            <p className="text-sm text-muted mb-6 max-w-md mx-auto leading-relaxed">
               Have a perspective on learning design, a tool recommendation, or a debate topic? I welcome thoughtful responses and new discussion threads.
             </p>
-            <div className="flex justify-center gap-3">
+            <div className="flex flex-wrap justify-center gap-3">
               <a
                 href="https://mail.google.com/mail/?view=cm&fs=1&to=prekshakothari06@gmail.com&su=Roundtable+Discussion"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-accent-dim text-white text-xs font-semibold rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-accent-dim text-white text-sm font-semibold rounded-full transition-colors shadow-sm"
               >
                 <Send className="h-3.5 w-3.5" /> Submit a Topic
               </a>
@@ -363,7 +447,7 @@ export default function RoundtablePage() {
                 href="https://www.linkedin.com/in/kothari-preksha/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 border border-border hover:border-accent/50 text-xs font-semibold rounded-xl transition-colors"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border border-border hover:border-accent/50 text-sm font-semibold rounded-full transition-colors"
               >
                 Connect on LinkedIn
               </a>

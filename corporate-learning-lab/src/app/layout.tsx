@@ -32,15 +32,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" style={{ colorScheme: 'dark' }}>
+    <html lang="en" style={{ colorScheme: 'light' }}>
       <head>
         <style dangerouslySetInnerHTML={{ __html: `
-          html { color-scheme: dark; color: #e2e5eb; }
-          body { background-color: #0b0d14 !important; color: #e2e5eb !important; }
+          html { color-scheme: light; color: #3d2e22; }
+          body { background-color: #faf6f1 !important; color: #3d2e22 !important; }
         `}} />
       </head>
       <body
-        style={{ backgroundColor: '#0b0d14', color: '#e2e5eb' }}
+        style={{ backgroundColor: '#faf6f1', color: '#3d2e22' }}
         className={`${inter.variable} ${jetbrains.variable}`}
       >
         <Navbar />

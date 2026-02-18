@@ -133,7 +133,7 @@ const futureDirections = [
 
 export default function LabNotebookPage() {
   return (
-    <div className="grid-bg min-h-screen">
+    <div className="warm-bg min-h-screen">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
           label="Reflections & Learnings"
@@ -146,7 +146,7 @@ export default function LabNotebookPage() {
           <AnimatedSection>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-8 bg-accent" />
-              <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
+              <span className="text-xs font-semibold tracking-widest uppercase text-accent">
                 Lessons Learned
               </span>
             </div>
@@ -159,16 +159,16 @@ export default function LabNotebookPage() {
                 <AnimatedSection key={lesson.lesson} delay={i * 0.08}>
                   <motion.div
                     whileHover={{ y: -4 }}
-                    className="card-glow rounded-xl bg-card border border-border p-5 h-full hover:border-accent/20 transition-colors"
+                    className="soft-card p-5 h-full"
                   >
                     <div className="flex items-center gap-2 mb-2">
                       <Icon className="h-4 w-4 text-accent" />
-                      <span className="text-[10px] font-mono font-semibold text-accent tracking-wider">
+                      <span className="text-[10px] font-semibold text-accent tracking-wider uppercase">
                         {lesson.category}
                       </span>
                     </div>
-                    <h4 className="text-sm font-bold mb-2">{lesson.lesson}</h4>
-                    <p className="text-xs text-muted leading-relaxed">{lesson.detail}</p>
+                    <h4 className="text-sm font-bold mb-2 text-heading">{lesson.lesson}</h4>
+                    <p className="text-sm text-muted leading-relaxed">{lesson.detail}</p>
                   </motion.div>
                 </AnimatedSection>
               );
@@ -181,7 +181,7 @@ export default function LabNotebookPage() {
           <div>
             <div className="flex items-center gap-3 mb-8">
               <div className="h-px w-8 bg-accent" />
-              <span className="text-xs font-mono font-semibold tracking-widest uppercase text-accent">
+              <span className="text-xs font-semibold tracking-widest uppercase text-accent">
                 Future Directions
               </span>
             </div>
@@ -190,11 +190,11 @@ export default function LabNotebookPage() {
                 <motion.div
                   key={dir.title}
                   whileHover={{ scale: 1.01 }}
-                  className="card-glow rounded-xl bg-card border border-border p-6 hover:border-accent/20 transition-colors"
+                  className="soft-card p-6"
                 >
                   <div className="flex items-center justify-between mb-3">
-                    <h4 className="text-sm font-bold">{dir.title}</h4>
-                    <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full ${
+                    <h4 className="text-sm font-bold text-heading">{dir.title}</h4>
+                    <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full ${
                       dir.status === "Researching" ? "bg-sky-500/10 text-sky-400" :
                       dir.status === "Experimenting" ? "bg-amber-500/10 text-amber-400" :
                       dir.status === "Conceptualizing" ? "bg-violet-500/10 text-violet-400" :
@@ -203,7 +203,7 @@ export default function LabNotebookPage() {
                       {dir.status}
                     </span>
                   </div>
-                  <p className="text-xs text-muted leading-relaxed">{dir.description}</p>
+                  <p className="text-sm text-muted leading-relaxed">{dir.description}</p>
                 </motion.div>
               ))}
             </div>

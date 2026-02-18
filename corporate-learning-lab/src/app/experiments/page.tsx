@@ -21,12 +21,19 @@ import {
 } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import AnimatedSection from "@/components/AnimatedSection";
+import {
+  generateStoryboardPdf,
+  generateInteractionFlowPdf,
+  generateAssessmentSamplePdf,
+  generateLearningJourneyMapPdf,
+} from "@/lib/generatePdf";
 
 interface CaseStudy {
   id: string;
   icon: React.ElementType;
   tag: string;
   tagColor: string;
+  artifacts: { label: string; generator: () => void }[];
   title: string;
   client: string;
   problem: string;
@@ -46,6 +53,12 @@ const caseStudies: CaseStudy[] = [
     icon: Building2,
     tag: "Corporate L&D",
     tagColor: "bg-sky-500/20 text-sky-400",
+    artifacts: [
+      { label: "Storyboard PDF", generator: () => { const doc = generateStoryboardPdf("Frontline Workforce Onboarding"); doc.save("Storyboard_Onboarding.pdf"); } },
+      { label: "Interaction Flow PDF", generator: () => { const doc = generateInteractionFlowPdf("Frontline Workforce Onboarding"); doc.save("Interaction_Flow_Onboarding.pdf"); } },
+      { label: "Assessment Sample PDF", generator: () => { const doc = generateAssessmentSamplePdf("Frontline Workforce Onboarding"); doc.save("Assessment_Sample_Onboarding.pdf"); } },
+      { label: "Learning Journey Map PDF", generator: () => { const doc = generateLearningJourneyMapPdf("Frontline Workforce Onboarding"); doc.save("Journey_Map_Onboarding.pdf"); } },
+    ],
     title: "Frontline Workforce Onboarding Redesign",
     client: "Cafe Coffee Day — Bengaluru",
     problem:
@@ -71,7 +84,7 @@ const caseStudies: CaseStudy[] = [
       { label: "Storyboard: Module 1 Screen Flow", type: "Storyboard", description: "8-screen linear progression from title screen through scenario challenge to summative assessment — each screen mapped to a Bloom's-level learning objective." },
       { label: "Interaction Flow: Branching Scenario", type: "Interaction Design", description: "Decision tree for customer interaction training — 3 response paths with distinct consequences, debrief screen, and remediation routing." },
       { label: "Assessment Sample: Scenario-Based MCQ", type: "Assessment", description: "Application-level question requiring learners to select the correct SOPs for a rush-hour scenario, replacing recall-based knowledge checks." },
-      { label: "Before vs After: Slide Deck → Module", type: "Comparison", description: "45-slide PowerPoint transformed into 5 chunked modules (8–12 screens each, under 15 min), reducing cognitive load and improving completion rates." },
+      { label: "Before vs After: Slide Deck \u2192 Module", type: "Comparison", description: "45-slide PowerPoint transformed into 5 chunked modules (8\u201312 screens each, under 15 min), reducing cognitive load and improving completion rates." },
     ],
   },
   {
@@ -79,6 +92,10 @@ const caseStudies: CaseStudy[] = [
     icon: Users,
     tag: "Needs Analysis",
     tagColor: "bg-violet-500/20 text-violet-400",
+    artifacts: [
+      { label: "Storyboard PDF", generator: () => { const doc = generateStoryboardPdf("Training Needs Analysis"); doc.save("Storyboard_TNA.pdf"); } },
+      { label: "Assessment Sample PDF", generator: () => { const doc = generateAssessmentSamplePdf("Training Needs Analysis"); doc.save("Assessment_Sample_TNA.pdf"); } },
+    ],
     title: "Training Needs Analysis & Skill Gap Intervention",
     client: "Things Education LLP — Bengaluru",
     problem:
@@ -111,6 +128,10 @@ const caseStudies: CaseStudy[] = [
     icon: GraduationCap,
     tag: "Academic L&D",
     tagColor: "bg-amber-500/20 text-amber-400",
+    artifacts: [
+      { label: "Storyboard PDF", generator: () => { const doc = generateStoryboardPdf("Faculty Development Program"); doc.save("Storyboard_Faculty.pdf"); } },
+      { label: "Learning Journey Map PDF", generator: () => { const doc = generateLearningJourneyMapPdf("Faculty Development Program"); doc.save("Journey_Map_Faculty.pdf"); } },
+    ],
     title: "Faculty Development & Pedagogical Enhancement Program",
     client: "Teaching Learning Enhancement Cell — Christ University",
     problem:
@@ -135,7 +156,7 @@ const caseStudies: CaseStudy[] = [
     evidence: [
       { label: "Workshop Flow Blueprint", type: "Design Artefact", description: "Timed activity sequence with facilitator cues, discussion prompts, hands-on segments, and embedded formative assessment checkpoints for a 90-minute session." },
       { label: "Unified Template System", type: "Design System", description: "Cross-departmental visual template with consistent section structures, branding, content depth standards, and post-workshop reference card format." },
-      { label: "Evaluation Instrument: Post-Workshop", type: "Assessment", description: "Multi-dimensional feedback form measuring knowledge gain, confidence shift, and intended practice changes — aggregated across 10+ sessions." },
+      { label: "Evaluation Instrument: Post-Workshop", type: "Assessment", description: "Multi-dimensional feedback form measuring knowledge gain, confidence shift, and intended practice changes \u2014 aggregated across 10+ sessions." },
     ],
   },
   {
@@ -143,6 +164,11 @@ const caseStudies: CaseStudy[] = [
     icon: Heart,
     tag: "Inclusive Design",
     tagColor: "bg-rose-500/20 text-rose-400",
+    artifacts: [
+      { label: "Storyboard PDF", generator: () => { const doc = generateStoryboardPdf("Inclusive Math Workbook"); doc.save("Storyboard_Inclusive.pdf"); } },
+      { label: "Assessment Sample PDF", generator: () => { const doc = generateAssessmentSamplePdf("Inclusive Math Workbook"); doc.save("Assessment_Sample_Inclusive.pdf"); } },
+      { label: "Interaction Flow PDF", generator: () => { const doc = generateInteractionFlowPdf("Inclusive Math Workbook"); doc.save("Interaction_Flow_Inclusive.pdf"); } },
+    ],
     title: "Sensory-Friendly Mathematics Workbook for Neurodiverse Learners",
     client: "Anantha Academy for Special Education — Bengaluru",
     problem:
@@ -191,7 +217,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
     <AnimatedSection>
       <motion.div
         layout
-        className="card-glow rounded-2xl bg-card border border-border overflow-hidden hover:border-accent/20 transition-colors"
+        className="soft-card overflow-hidden rounded-2xl"
       >
         <div
           className="p-6 sm:p-8 cursor-pointer"
@@ -199,18 +225,18 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
         >
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-start gap-4">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-accent/10 border border-accent/20">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-accent/10 border border-accent/20">
                 <Icon className="h-6 w-6 text-accent" />
               </div>
               <div>
-                <span className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-semibold ${study.tagColor} mb-2`}>
+                <span className={`inline-block px-2.5 py-1.5 rounded-full text-[10px] font-semibold ${study.tagColor} mb-2`}>
                   {study.tag}
                 </span>
-                <h3 className="text-lg font-bold leading-tight">{study.title}</h3>
-                <p className="text-xs text-muted mt-1 font-mono">{study.client}</p>
+                <h3 className="text-lg font-bold leading-tight text-heading">{study.title}</h3>
+                <p className="text-xs text-muted mt-1">{study.client}</p>
               </div>
             </div>
-            <button className="shrink-0 mt-2 p-2 rounded-lg hover:bg-surface transition-colors">
+            <button className="shrink-0 mt-2 p-2 rounded-full hover:bg-surface transition-colors">
               {isExpanded ? (
                 <ChevronUp className="h-4 w-4 text-muted" />
               ) : (
@@ -240,7 +266,7 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
                     return (
                       <div key={phase.label} className="flex items-center">
                         <div className="flex flex-col items-center gap-1 min-w-[64px]">
-                          <div className="h-8 w-8 rounded-lg bg-accent/10 flex items-center justify-center">
+                          <div className="h-8 w-8 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-xs font-bold text-accent">
                             <PIcon className="h-3.5 w-3.5 text-accent" />
                           </div>
                           <span className="text-[9px] text-muted font-medium text-center">{phase.label}</span>
@@ -262,13 +288,13 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
                   <div>
                     <div className="flex items-center gap-2 mb-3">
                       <Wrench className="h-4 w-4 text-accent" />
-                      <h4 className="text-sm font-semibold">Course Development Tools</h4>
+                      <h4 className="text-sm font-semibold text-heading">Course Development Tools</h4>
                     </div>
                     <div className="flex flex-wrap gap-2">
                       {study.tools.map((tool) => (
                         <span
                           key={tool}
-                          className="px-3 py-1.5 text-xs font-medium bg-surface border border-border rounded-lg"
+                          className="px-3 py-1.5 text-xs font-medium bg-surface border border-border rounded-full"
                         >
                           {tool}
                         </span>
@@ -282,16 +308,16 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
                   <div>
                     <div className="flex items-center gap-2 mb-3">
                       <TrendingUp className="h-4 w-4 text-accent" />
-                      <h4 className="text-sm font-semibold">Measurable Impact</h4>
+                      <h4 className="text-sm font-semibold text-heading">Measurable Impact</h4>
                     </div>
                     <div className="grid sm:grid-cols-2 gap-2">
                       {study.impact.map((item, i) => (
                         <div
                           key={i}
-                          className="flex items-start gap-2 p-3 rounded-lg bg-surface border border-border"
+                          className="flex items-start gap-2 p-3 rounded-xl bg-surface border border-border"
                         >
                           <div className="h-1.5 w-1.5 rounded-full bg-accent mt-1.5 shrink-0" />
-                          <span className="text-xs text-muted leading-relaxed">{item}</span>
+                          <span className="text-sm text-muted leading-relaxed">{item}</span>
                         </div>
                       ))}
                     </div>
@@ -302,17 +328,38 @@ function CaseStudyCard({ study }: { study: CaseStudy }) {
                     <div>
                       <div className="flex items-center gap-2 mb-3">
                         <Layout className="h-4 w-4 text-accent" />
-                        <h4 className="text-sm font-semibold">Evidence & Design Artefacts</h4>
+                        <h4 className="text-sm font-semibold text-heading">Evidence & Design Artefacts</h4>
                       </div>
                       <div className="grid sm:grid-cols-2 gap-3">
                         {study.evidence.map((ev, i) => (
                           <div key={i} className="p-4 rounded-xl bg-surface border border-border hover:border-accent/20 transition-colors">
                             <div className="flex items-center gap-2 mb-2">
-                              <span className="text-[9px] font-mono font-semibold px-2 py-0.5 rounded bg-accent/10 text-accent">{ev.type}</span>
+                              <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-accent/10 text-accent">{ev.type}</span>
                             </div>
-                            <h5 className="text-xs font-semibold mb-1">{ev.label}</h5>
-                            <p className="text-[11px] text-muted leading-relaxed">{ev.description}</p>
+                            <h5 className="text-sm font-semibold text-heading mb-1">{ev.label}</h5>
+                            <p className="text-sm text-muted leading-relaxed">{ev.description}</p>
                           </div>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Downloadable Artifacts */}
+                  {study.artifacts && study.artifacts.length > 0 && (
+                    <div>
+                      <div className="flex items-center gap-2 mb-3">
+                        <Beaker className="h-4 w-4 text-accent" />
+                        <h4 className="text-sm font-semibold text-heading">Download Project Artifacts</h4>
+                      </div>
+                      <div className="flex flex-wrap gap-2">
+                        {study.artifacts.map((artifact, i) => (
+                          <button
+                            key={i}
+                            onClick={artifact.generator}
+                            className="inline-flex items-center gap-2 px-4 py-2 bg-accent hover:bg-accent-dim text-white rounded-full text-xs font-semibold transition-colors shadow-sm"
+                          >
+                            <Beaker className="h-3 w-3" /> {artifact.label}
+                          </button>
                         ))}
                       </div>
                     </div>
@@ -340,7 +387,7 @@ function PhaseBlock({
     <div>
       <div className="flex items-center gap-2 mb-2">
         <Icon className="h-4 w-4 text-accent" />
-        <h4 className="text-sm font-semibold">{title}</h4>
+        <h4 className="text-sm font-semibold text-heading">{title}</h4>
       </div>
       <p className="text-sm text-muted leading-relaxed pl-6">{content}</p>
     </div>
@@ -349,7 +396,7 @@ function PhaseBlock({
 
 export default function ExperimentsPage() {
   return (
-    <div className="grid-bg min-h-screen">
+    <div className="warm-bg min-h-screen">
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
           label="Projects"
@@ -359,22 +406,22 @@ export default function ExperimentsPage() {
 
         {/* ADDIE Process Bar */}
         <AnimatedSection>
-          <div className="mb-12 p-4 rounded-xl bg-card border border-border">
+          <div className="mb-12 soft-card p-4">
             <div className="flex items-center justify-between gap-2 overflow-x-auto">
               {["Analyze", "Design", "Develop", "Implement", "Evaluate"].map((phase, i) => (
                 <div key={phase} className="flex items-center">
                   <div className="flex items-center gap-2 min-w-fit">
-                    <div className="h-8 w-8 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center text-xs font-bold text-accent">
+                    <div className="h-8 w-8 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center text-xs font-bold text-accent">
                       {i + 1}
                     </div>
-                    <span className="text-xs font-semibold whitespace-nowrap">{phase}</span>
+                    <span className="text-xs font-semibold whitespace-nowrap text-heading">{phase}</span>
                   </div>
                   {i < 4 && <div className="h-px w-8 bg-border mx-2 shrink-0" />}
                 </div>
               ))}
             </div>
-            <p className="text-[10px] text-muted mt-3 font-mono text-center tracking-wider">
-              ADDIE FRAMEWORK — APPLIED ACROSS ALL PROJECTS
+            <p className="text-[10px] text-muted mt-3 text-center tracking-wider font-semibold uppercase">
+              ADDIE Framework \u2014 Applied Across All Projects
             </p>
           </div>
         </AnimatedSection>

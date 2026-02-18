@@ -19,6 +19,15 @@ import {
 } from "lucide-react";
 import SectionHeader from "@/components/SectionHeader";
 import AnimatedSection from "@/components/AnimatedSection";
+import {
+  generateTNATemplate,
+  generateOnboardingJourneyMap,
+  generateAssessmentBlueprint,
+  generateWorkshopPlanning,
+  generateLessonDesignPlanner,
+  generateSkillGapAssessment,
+  generateCareerReadinessChecklist,
+} from "@/lib/generatePdf";
 
 type TabKey = "corporate" | "educator" | "student";
 
@@ -34,7 +43,13 @@ interface ToolkitItem {
   description: string;
   includes: string[];
   tag: string;
+  pdfGenerator: () => void;
 }
+
+const downloadPdf = (generator: () => { save: (name: string) => void }, filename: string) => {
+  const doc = generator();
+  doc.save(filename);
+};
 
 const toolkitData: Record<TabKey, { intro: string; items: ToolkitItem[] }> = {
   corporate: {
@@ -53,12 +68,13 @@ const toolkitData: Record<TabKey, { intro: string; items: ToolkitItem[] }> = {
           "Prioritization framework",
         ],
         tag: "Analysis",
+        pdfGenerator: () => downloadPdf(generateTNATemplate, "TNA_Template.pdf"),
       },
       {
         icon: Map,
         title: "Onboarding Journey Map",
         description:
-          "A visual blueprint for designing phased onboarding experiences — from pre-boarding through 90-day milestones. Maps touchpoints, learning activities, and success metrics at each stage.",
+          "A visual blueprint for designing phased onboarding experiences \u2014 from pre-boarding through 90-day milestones. Maps touchpoints, learning activities, and success metrics at each stage.",
         includes: [
           "Phase-by-phase journey template",
           "Touchpoint mapping canvas",
@@ -66,32 +82,21 @@ const toolkitData: Record<TabKey, { intro: string; items: ToolkitItem[] }> = {
           "Stakeholder responsibility matrix",
         ],
         tag: "Design",
+        pdfGenerator: () => downloadPdf(generateOnboardingJourneyMap, "Onboarding_Journey_Map.pdf"),
       },
       {
         icon: ClipboardCheck,
         title: "Assessment Blueprint",
         description:
-          "A framework for designing competency-aligned assessments using Bloom's Taxonomy. Includes question type matrices, rubric templates, and scoring calibration guides.",
+          "A framework for designing competency-aligned assessments using Bloom\u2019s Taxonomy. Includes question type matrices, rubric templates, and scoring calibration guides.",
         includes: [
-          "Bloom's-aligned question matrix",
+          "Bloom\u2019s-aligned question matrix",
           "Rubric development template",
           "Pre/post assessment comparison tool",
           "Feedback loop design guide",
         ],
         tag: "Assessment",
-      },
-      {
-        icon: Layers,
-        title: "Simulation Design Framework",
-        description:
-          "A structured approach to designing scenario-based simulations and branching scenarios. Covers scenario scripting, decision tree mapping, and consequence design.",
-        includes: [
-          "Scenario scripting template",
-          "Decision tree mapping tool",
-          "Branching logic flowchart",
-          "Debriefing guide",
-        ],
-        tag: "Development",
+        pdfGenerator: () => downloadPdf(generateAssessmentBlueprint, "Assessment_Blueprint.pdf"),
       },
     ],
   },
@@ -101,42 +106,31 @@ const toolkitData: Record<TabKey, { intro: string; items: ToolkitItem[] }> = {
     items: [
       {
         icon: BookOpen,
-        title: "Workshop Planner",
+        title: "Workshop Planning Template",
         description:
           "A comprehensive workshop design template with timed activity blocks, facilitator notes, material checklists, and participant engagement strategies.",
         includes: [
-          "Timed activity block planner",
-          "Facilitator guide template",
-          "Material preparation checklist",
-          "Engagement strategy menu",
+          "Learning goals alignment",
+          "Session flow with timed blocks",
+          "Activities & materials list",
+          "Assessment method design",
         ],
         tag: "Facilitation",
+        pdfGenerator: () => downloadPdf(generateWorkshopPlanning, "Workshop_Planning_Template.pdf"),
       },
       {
         icon: Layers,
-        title: "Curriculum Framework",
+        title: "Lesson Design Planner",
         description:
-          "A backward design curriculum template that starts from learning outcomes and maps to assessment strategies, instructional activities, and resource requirements.",
+          "A structured lesson planning template covering topic, outcomes, instructional strategy, engagement activities, and reflection prompts \u2014 all aligned to evidence-based pedagogy.",
         includes: [
-          "Outcome-first design canvas",
-          "Assessment alignment matrix",
-          "Activity sequencing tool",
-          "Resource mapping template",
+          "Learning outcomes with Bloom\u2019s verbs",
+          "Instructional strategy block",
+          "Engagement activity design",
+          "Reflection prompt section",
         ],
         tag: "Curriculum",
-      },
-      {
-        icon: Lightbulb,
-        title: "Engagement Strategy Kit",
-        description:
-          "A collection of evidence-based active learning strategies, discussion facilitation techniques, and formative assessment methods for classroom and virtual settings.",
-        includes: [
-          "Active learning strategy cards",
-          "Discussion prompt generator",
-          "Formative assessment toolkit",
-          "Virtual engagement playbook",
-        ],
-        tag: "Engagement",
+        pdfGenerator: () => downloadPdf(generateLessonDesignPlanner, "Lesson_Design_Planner.pdf"),
       },
     ],
   },
@@ -146,42 +140,31 @@ const toolkitData: Record<TabKey, { intro: string; items: ToolkitItem[] }> = {
     items: [
       {
         icon: Target,
-        title: "Skill Gap Assessment",
+        title: "Skill Gap Self-Assessment",
         description:
-          "A self-assessment framework that maps current competencies against target role requirements. Identifies priority development areas and recommended learning pathways.",
+          "A self-assessment framework with rating scales across communication, problem-solving, collaboration, and workplace readiness. Includes action planning section.",
         includes: [
-          "Competency self-assessment grid",
-          "Role requirement mapping tool",
-          "Gap prioritization matrix",
-          "Development action planner",
+          "Rating scale for 6 skill areas",
+          "Evidence/example column",
+          "Development goal tracker",
+          "Action plan section",
         ],
         tag: "Assessment",
+        pdfGenerator: () => downloadPdf(generateSkillGapAssessment, "Skill_Gap_Self_Assessment.pdf"),
       },
       {
         icon: BarChart3,
-        title: "Learning Planner",
+        title: "Career Readiness Checklist",
         description:
-          "A structured learning plan template that helps organize skill acquisition across time horizons — weekly, monthly, and quarterly — with built-in reflection checkpoints.",
+          "A comprehensive checklist covering resume readiness, interview skills, workplace behaviour, and professional communication \u2014 with status tracking.",
         includes: [
-          "Weekly learning schedule",
-          "Monthly milestone tracker",
-          "Reflection journal template",
-          "Resource curation guide",
-        ],
-        tag: "Planning",
-      },
-      {
-        icon: Lightbulb,
-        title: "Career Readiness Guide",
-        description:
-          "A comprehensive guide for transitioning from academic to professional environments. Covers workplace communication, professional portfolio building, and interview preparation from an L&D perspective.",
-        includes: [
-          "Workplace readiness checklist",
-          "Portfolio building framework",
-          "Professional communication guide",
-          "Interview preparation toolkit",
+          "Resume readiness items",
+          "Interview preparation checklist",
+          "Workplace behaviour guide",
+          "Professional communication items",
         ],
         tag: "Career",
+        pdfGenerator: () => downloadPdf(generateCareerReadinessChecklist, "Career_Readiness_Checklist.pdf"),
       },
     ],
   },
@@ -192,17 +175,17 @@ export default function ToolkitsPage() {
   const data = toolkitData[activeTab];
 
   return (
-    <div className="grid-bg min-h-screen">
+    <div className="warm-bg min-h-screen">
       <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
         <SectionHeader
           label="Stakeholder Toolkits"
           title="Frameworks, Templates & Blueprints"
-          description="Segmented resource hubs designed for corporate L&D professionals, educators, and early-career learners. Each toolkit contains actionable frameworks grounded in instructional design best practices."
+          description="Segmented resource hubs designed for corporate L&D professionals, educators, and early-career learners. Each toolkit contains actionable, downloadable templates grounded in instructional design best practices."
         />
 
         {/* Tab Selector */}
         <AnimatedSection>
-          <div className="flex gap-2 mb-12 p-1.5 bg-card border border-border rounded-xl w-fit">
+          <div className="flex flex-wrap gap-2 mb-12 p-1.5 bg-white border border-border rounded-full w-fit shadow-sm">
             {tabs.map((tab) => {
               const Icon = tab.icon;
               const isActive = activeTab === tab.key;
@@ -210,9 +193,9 @@ export default function ToolkitsPage() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-lg text-xs font-semibold transition-all ${
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs font-semibold transition-all ${
                     isActive
-                      ? "bg-accent text-white shadow-lg shadow-accent/20"
+                      ? "bg-accent text-white shadow-sm"
                       : "text-muted hover:text-foreground hover:bg-surface"
                   }`}
                 >
@@ -237,39 +220,42 @@ export default function ToolkitsPage() {
               <AnimatedSection key={item.title} delay={i * 0.1}>
                 <motion.div
                   whileHover={{ y: -4 }}
-                  className="card-glow rounded-2xl bg-card border border-border p-6 h-full hover:border-accent/20 transition-colors"
+                  className="soft-card p-6 h-full"
                 >
                   <div className="flex items-start justify-between mb-4">
                     <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-lg bg-accent/10 border border-accent/20 flex items-center justify-center">
+                      <div className="h-10 w-10 rounded-full bg-accent/10 border border-accent/20 flex items-center justify-center">
                         <Icon className="h-5 w-5 text-accent" />
                       </div>
                       <div>
-                        <span className="text-[10px] font-mono font-semibold text-accent tracking-wider">
+                        <span className="text-[10px] font-semibold text-accent tracking-wider uppercase">
                           {item.tag}
                         </span>
-                        <h3 className="text-sm font-bold">{item.title}</h3>
+                        <h3 className="text-sm font-bold text-heading">{item.title}</h3>
                       </div>
                     </div>
                   </div>
-                  <p className="text-xs text-muted leading-relaxed mb-4">{item.description}</p>
-                  <div className="space-y-2">
-                    <p className="text-[10px] font-mono font-semibold text-muted tracking-wider uppercase">
+                  <p className="text-sm text-muted leading-relaxed mb-4">{item.description}</p>
+                  <div className="space-y-2 mb-5">
+                    <p className="text-xs font-semibold text-heading tracking-wider uppercase">
                       Includes
                     </p>
                     {item.includes.map((inc) => (
                       <div
                         key={inc}
-                        className="flex items-center gap-2 text-xs text-muted"
+                        className="flex items-center gap-2 text-sm text-muted"
                       >
                         <ChevronRight className="h-3 w-3 text-accent shrink-0" />
                         {inc}
                       </div>
                     ))}
                   </div>
-                  <button className="mt-4 flex items-center gap-2 px-4 py-2 bg-surface border border-border rounded-lg text-xs font-semibold hover:border-accent/40 transition-colors group">
-                    <Download className="h-3.5 w-3.5 text-accent group-hover:scale-110 transition-transform" />
-                    Download Template
+                  <button
+                    onClick={item.pdfGenerator}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-accent hover:bg-accent-dim text-white rounded-full text-xs font-semibold transition-colors shadow-sm group"
+                  >
+                    <Download className="h-3.5 w-3.5 group-hover:scale-110 transition-transform" />
+                    Download PDF Template
                   </button>
                 </motion.div>
               </AnimatedSection>
